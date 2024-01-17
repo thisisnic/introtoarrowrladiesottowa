@@ -1,0 +1,35 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+
+website:
+  title: "Big Data with Arrow - Short Workshop"
+  navbar:
+    background: dark
+    logo: "images/logo.png"
+    right:
+      - icon: file-certificate
+        href: license-web.qmd
+      - icon: github
+        href: https://github.com/thisisnic/arrow_2hr_workshop
+        text: GitHub
+
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Slides
+        href: slides.qmd
+        target: "_blank"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    link-external-newwindow: true
+
+editor: visual
+engine: knitr
+execute:
+  freeze: auto
