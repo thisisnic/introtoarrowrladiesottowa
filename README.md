@@ -1,11 +1,11 @@
-# Arrow 2 Hour Workshop
+# Intro to Arrow Workshop
 
 by Steph Hazlitt & Nic Crane
 
 
 ### Workshop Website
 
-This repository contains materials for the 2-hour **Big Data in R with Arrow** workshop. See https://remarkable-meerkat-01099f.netlify.app/ for rendered workshop materials.
+This repository contains materials for the **Intro to Arrow** workshop. See https://remarkable-meerkat-01099f.netlify.app/ for rendered workshop materials.
 
 ### Workshop Overview
   
