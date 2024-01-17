@@ -156,8 +156,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#workshop-overview" id="toc-workshop-overview" class="nav-link active" data-scroll-target="#workshop-overview">Workshop Overview</a></li>
   <li><a href="#workshop-prework" id="toc-workshop-prework" class="nav-link" data-scroll-target="#workshop-prework">Workshop Prework</a></li>
-  <li><a href="#instructors" id="toc-instructors" class="nav-link" data-scroll-target="#instructors">Instructors</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </nav>
     </div>
@@ -213,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">1800</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/seattle-library-checkouts.csv"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"./data/seattle-library-checkouts.csv"</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -224,29 +222,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">1800</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/seattle-library-checkouts-tiny.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"./data/seattle-library-checkouts-tiny.csv"</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software &amp; packages installed and the data downloaded on to your laptop.</p>
-</section>
-</section>
-<section id="instructors" class="level3">
-<h3 class="anchored" data-anchor-id="instructors">Instructors</h3>
-<p><strong>Steph Hazlitt</strong> is a data scientist, researcher and R enthusiast. She has spent the better part of her career wrangling data with R and supporting people and teams in learning, creating and sharing data science-related products and open source software.</p>
-<p><strong>Nic Crane</strong> is a software engineer with a background in data science, and has a lot of enthusiasm for open source and learning and teaching all things R. Nic is part of the core team who maintain the Arrow R package.</p>
-</section>
-<section id="acknowledgements" class="level3">
-<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
-<p>Some of the <code>Big Data in R with Arrow</code> workshop materials draw on other open-licensed teaching content which we would like to acknowledge:</p>
-<ul>
-<li><a href="https://github.com/djnavarro/arrow-user2022">useR!2022 virtual Larger-Than-Memory Data Workflows with Apache Arrow tutorial</a> authored by Danielle Navarro</li>
-<li><a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a> written by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund—with thanks to Danielle Navarro who contributed the initial version of the <a href="https://r4ds.hadley.nz/arrow">Arrow chapter</a></li>
-<li><a href="https://francoismichonneau.net/2022/10/import-big-csv/">How to use Arrow to work with large CSV files? blog post</a> by François Michonneau, which introduces the single vs multi-file API models for learning/teaching Arrow</li>
-</ul>
 <hr>
 <p><img src="https://i.creativecommons.org/l/by/4.0/88x31.png" class="img-fluid"> This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

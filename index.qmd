@@ -46,7 +46,7 @@ This is the data we will use to explore data storage and engineering options. It
 options(timeout = 1800)
 download.file(
   url = "https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv",
-  destfile = here::here("data/seattle-library-checkouts.csv")
+  destfile = "./data/seattle-library-checkouts.csv"
 )
 ```
 
@@ -61,25 +61,11 @@ If you don't have time or disk space to download the 9Gb dataset (and still have
 options(timeout = 1800)
 download.file(
   url = "https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv",
-  destfile = here::here("data/seattle-library-checkouts-tiny.csv")
+  destfile = "./data/seattle-library-checkouts-tiny.csv"
 )
 ```
 
 If you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software & packages installed and the data downloaded on to your laptop.
-
-### Instructors
-
-**Steph Hazlitt** is a data scientist, researcher and R enthusiast. She has spent the better part of her career wrangling data with R and supporting people and teams in learning, creating and sharing data science-related products and open source software.
-
-**Nic Crane** is a software engineer with a background in data science, and has a lot of enthusiasm for open source and learning and teaching all things R. Nic is part of the core team who maintain the Arrow R package.
-
-### Acknowledgements
-
-Some of the `Big Data in R with Arrow` workshop materials draw on other open-licensed teaching content which we would like to acknowledge:
-
--   [useR!2022 virtual Larger-Than-Memory Data Workflows with Apache Arrow tutorial](https://github.com/djnavarro/arrow-user2022) authored by Danielle Navarro
--   [R for Data Science (2e)](https://r4ds.hadley.nz/) written by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund---with thanks to Danielle Navarro who contributed the initial version of the [Arrow chapter](https://r4ds.hadley.nz/arrow)
--   [How to use Arrow to work with large CSV files? blog post](https://francoismichonneau.net/2022/10/import-big-csv/) by François Michonneau, which introduces the single vs multi-file API models for learning/teaching Arrow
 
 ------------------------------------------------------------------------
 
