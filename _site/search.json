@@ -1,0 +1,212 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Big Data in R with Arrow",
+    "section": "",
+    "text": "Contents written by Steph Hazlitt & Nic Crane\n\nWorkshop Overview\nData analysis pipelines with larger-than-memory data are becoming more and more commonplace. In this workshop you will learn how to use Apache Arrow, a multi-language toolbox for working with larger-than-memory tabular data, to create seamless “big” data analysis pipelines with R.\nThe workshop will focus on using the the arrow R package—a mature R interface to Apache Arrow—to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You’ll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.\nThis course is for you if you:\n\nwant to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow\nwant to learn about Parquet and other file formats that are powerful alternatives to CSV files\nwant to learn how to engineer your tabular data storage for more performant access and analysis with Apache Arrow\n\n\n\nWorkshop Prework\nDetailed instructions for software requirements and data sources are show below.\n\nPackages\nTo install the required core packages for the workshop, run the following:\n\ninstall.packages(c(\n  \"arrow\", \"dplyr\", \"stringr\", \"lubridate\", \"tictoc\"\n))\n\n\n\nSeattle Checkouts by Title Data\nThis is the data we will use to explore data storage and engineering options. It’s a good sized, single CSV file—9GB on-disk in total, which can be downloaded from the an AWS S3 bucket via https:\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv\",\n  destfile = here::here(\"data/seattle-library-checkouts.csv\")\n)\n\n\n\nTiny Data Option\nIf you don’t have time or disk space to download the 9Gb dataset (and still have disk space do the exercises), you can run the code and exercises in the course with “tiny” version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data—although note you may not see the same performance improvements that you would get when working with larger data.\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv\",\n  destfile = here::here(\"data/seattle-library-checkouts-tiny.csv\")\n)\n\nIf you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software & packages installed and the data downloaded on to your laptop.\n\n\n\nInstructors\nSteph Hazlitt is a data scientist, researcher and R enthusiast. She has spent the better part of her career wrangling data with R and supporting people and teams in learning, creating and sharing data science-related products and open source software.\nNic Crane is a software engineer with a background in data science, and has a lot of enthusiasm for open source and learning and teaching all things R. Nic is part of the core team who maintain the Arrow R package.\n\n\nAcknowledgements\nSome of the Big Data in R with Arrow workshop materials draw on other open-licensed teaching content which we would like to acknowledge:\n\nuseR!2022 virtual Larger-Than-Memory Data Workflows with Apache Arrow tutorial authored by Danielle Navarro\nR for Data Science (2e) written by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund—with thanks to Danielle Navarro who contributed the initial version of the Arrow chapter\nHow to use Arrow to work with large CSV files? blog post by François Michonneau, which introduces the single vs multi-file API models for learning/teaching Arrow\n\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
+  },
+  {
+    "objectID": "slides.html#seattle-checkouts-big-csv",
+    "href": "slides.html#seattle-checkouts-big-csv",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "SeattleCheckoutsBig CSV",
+    "text": "SeattleCheckoutsBig CSV"
+  },
+  {
+    "objectID": "slides.html#how-big-is-the-dataset",
+    "href": "slides.html#how-big-is-the-dataset",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "How big is the dataset?",
+    "text": "How big is the dataset?\n\nfs::file_size(\"./data/seattle-library-checkouts.csv\")\n\n8.58G"
+  },
+  {
+    "objectID": "slides.html#opening-in-arrow",
+    "href": "slides.html#opening-in-arrow",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Opening in Arrow",
+    "text": "Opening in Arrow\n\nseattle_csv &lt;- open_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n)"
+  },
+  {
+    "objectID": "slides.html#extract-schema",
+    "href": "slides.html#extract-schema",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Extract schema",
+    "text": "Extract schema\n\nschema(seattle_csv)\n\nSchema\nUsageClass: string\nCheckoutType: string\nMaterialType: string\nCheckoutYear: int64\nCheckoutMonth: int64\nCheckouts: int64\nTitle: string\nISBN: null\nCreator: string\nSubjects: string\nPublisher: string\nPublicationYear: string"
+  },
+  {
+    "objectID": "slides.html#arrow-data-types",
+    "href": "slides.html#arrow-data-types",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Arrow Data Types",
+    "text": "Arrow Data Types\nArrow has a rich data type system, including direct analogs of many R data types\n\n&lt;dbl&gt; == &lt;double&gt;\n&lt;chr&gt; == &lt;string&gt; or &lt;utf8&gt;\n&lt;int&gt; == &lt;int32&gt;\n\n\nhttps://arrow.apache.org/docs/r/articles/data_types.html"
+  },
+  {
+    "objectID": "slides.html#parsing-the-metadata",
+    "href": "slides.html#parsing-the-metadata",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Parsing the Metadata",
+    "text": "Parsing the Metadata\n\nArrow scans 👀 a few thousand rows of the file(s) to impute or “guess” the data types\n\n📚 arrow vs readr blog post: https://thisisnic.github.io/2022/11/21/type-inference-in-readr-and-arrow/"
+  },
+  {
+    "objectID": "slides.html#parsers-are-not-always-right",
+    "href": "slides.html#parsers-are-not-always-right",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Parsers Are Not Always Right",
+    "text": "Parsers Are Not Always Right\n\nschema(seattle_csv)\n\nSchema\nUsageClass: string\nCheckoutType: string\nMaterialType: string\nCheckoutYear: int64\nCheckoutMonth: int64\nCheckouts: int64\nTitle: string\nISBN: null\nCreator: string\nSubjects: string\nPublisher: string\nPublicationYear: string\n\n\n\n\nInternational Standard Book Number (ISBN) is a 13-digit number that uniquely identifies books and book-like products published internationally.\nData Dictionaries, metadata in data catalogues should provide this info."
+  },
+  {
+    "objectID": "slides.html#lets-control-the-schema",
+    "href": "slides.html#lets-control-the-schema",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Let’s Control the Schema",
+    "text": "Let’s Control the Schema\n\nCreating a schema manually:\n\nschema(\n  UsageClass = utf8(),\n  CheckoutType = utf8(),\n  MaterialType = utf8(),\n  ...\n)\n\n\nThis will take a lot of typing with 12 columns 😢"
+  },
+  {
+    "objectID": "slides.html#lets-control-the-schema-1",
+    "href": "slides.html#lets-control-the-schema-1",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Let’s Control the Schema",
+    "text": "Let’s Control the Schema\n\nseattle_csv &lt;- open_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  col_types = schema(ISBN = string()),\n  format = \"csv\"\n)"
+  },
+  {
+    "objectID": "slides.html#previewing-the-data",
+    "href": "slides.html#previewing-the-data",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Previewing the data",
+    "text": "Previewing the data\n\nseattle_csv |&gt; glimpse()\n\nFileSystemDataset with 1 csv file\n41,389,465 rows x 12 columns\n$ UsageClass      &lt;string&gt; \"Physical\", \"Physical\", \"Digital\", \"Physical\", \"Physi…\n$ CheckoutType    &lt;string&gt; \"Horizon\", \"Horizon\", \"OverDrive\", \"Horizon\", \"Horizo…\n$ MaterialType    &lt;string&gt; \"BOOK\", \"BOOK\", \"EBOOK\", \"BOOK\", \"SOUNDDISC\", \"BOOK\",…\n$ CheckoutYear     &lt;int64&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016,…\n$ CheckoutMonth    &lt;int64&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,…\n$ Checkouts        &lt;int64&gt; 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 2, 3, 2, 1, 3, 2, 3,…\n$ Title           &lt;string&gt; \"Super rich : a guide to having it all / Russell Simm…\n$ ISBN            &lt;string&gt; \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"…\n$ Creator         &lt;string&gt; \"Simmons, Russell\", \"Barclay, James, 1965-\", \"Tim Par…\n$ Subjects        &lt;string&gt; \"Self realization, Conduct of life, Attitude Psycholo…\n$ Publisher       &lt;string&gt; \"Gotham Books,\", \"Pyr,\", \"Random House, Inc.\", \"Dial …\n$ PublicationYear &lt;string&gt; \"c2011.\", \"2010.\", \"2015\", \"2005.\", \"c2004.\", \"c2005.…"
+  },
+  {
+    "objectID": "slides.html#gb-csv-file-arrow-dplyr",
+    "href": "slides.html#gb-csv-file-arrow-dplyr",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "9GB CSV file + arrow + dplyr",
+    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect()\n\n# A tibble: 18 × 2\n   CheckoutYear Checkouts\n          &lt;int&gt;     &lt;int&gt;\n 1         2005   3798685\n 2         2006   6599318\n 3         2007   7126627\n 4         2008   8438486\n 5         2009   9135167\n 6         2010   8608966\n 7         2011   8321732\n 8         2012   8163046\n 9         2013   9057096\n10         2014   9136081\n11         2015   9084179\n12         2016   9021051\n13         2017   9231648\n14         2018   9149176\n15         2019   9199083\n16         2020   6053717\n17         2021   7361031\n18         2022   7001989"
+  },
+  {
+    "objectID": "slides.html#gb-csv-file-arrow-dplyr-1",
+    "href": "slides.html#gb-csv-file-arrow-dplyr-1",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "9GB CSV file + arrow + dplyr",
+    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 29.566   2.171  28.388 \n\n\n42 million rows – not bad, but could be faster…."
+  },
+  {
+    "objectID": "slides.html#file-format-apache-parquet",
+    "href": "slides.html#file-format-apache-parquet",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "File Format: Apache Parquet",
+    "text": "File Format: Apache Parquet\n\n\nhttps://parquet.apache.org/"
+  },
+  {
+    "objectID": "slides.html#parquet",
+    "href": "slides.html#parquet",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Parquet",
+    "text": "Parquet\n\nusually smaller than equivalent CSV file\nrich type system & stores the data type along with the data\n“column-oriented” == better performance over CSV’s row-by-row\n“row-chunked” == work on different parts of the file at the same time or skip some chunks all together\n\n\n\nefficient encodings to keep file size down, and supports file compression, less data to move from disk to memory\nCSV has no info about data types, inferred by each parser"
+  },
+  {
+    "objectID": "slides.html#parquet-files-row-chunked",
+    "href": "slides.html#parquet-files-row-chunked",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Parquet Files: “row-chunked”",
+    "text": "Parquet Files: “row-chunked”"
+  },
+  {
+    "objectID": "slides.html#parquet-files-row-chunked-column-oriented",
+    "href": "slides.html#parquet-files-row-chunked-column-oriented",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Parquet Files: “row-chunked & column-oriented”",
+    "text": "Parquet Files: “row-chunked & column-oriented”"
+  },
+  {
+    "objectID": "slides.html#writing-to-parquet",
+    "href": "slides.html#writing-to-parquet",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Writing to Parquet",
+    "text": "Writing to Parquet\n\nseattle_parquet &lt;- \"./data/seattle-library-checkouts-parquet\"\n\nseattle_csv |&gt;\n  write_dataset(path = seattle_parquet,\n                format = \"parquet\")"
+  },
+  {
+    "objectID": "slides.html#storage-parquet-vs-csv",
+    "href": "slides.html#storage-parquet-vs-csv",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Storage: Parquet vs CSV",
+    "text": "Storage: Parquet vs CSV\n\nfile &lt;- list.files(seattle_parquet)\nfile.size(file.path(seattle_parquet, file)) / 10**9\n\n[1] 4.423348\n\n\n\nParquet about half the size of the CSV file on-disk 💾"
+  },
+  {
+    "objectID": "slides.html#file-storage-partitioning",
+    "href": "slides.html#file-storage-partitioning",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "File Storage:Partitioning",
+    "text": "File Storage:Partitioning\n\n\n\nDividing data into smaller pieces, making it more easily accessible and manageable\n\n\n\n\n\nalso called multi-files or sometimes shards"
+  },
+  {
+    "objectID": "slides.html#poll-partitioning",
+    "href": "slides.html#poll-partitioning",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Poll: Partitioning?",
+    "text": "Poll: Partitioning?\nHave you partitioned your data or used partitioned data before today?\n\n1️⃣ Yes\n2️⃣ No\n3️⃣ Not sure, the data engineers sort that out!"
+  },
+  {
+    "objectID": "slides.html#art-science-of-partitioning",
+    "href": "slides.html#art-science-of-partitioning",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Art & Science of Partitioning",
+    "text": "Art & Science of Partitioning\n\n\navoid files &lt; 20MB and &gt; 2GB\navoid &gt; 10,000 files (🤯)\npartition on variables used in filter()\n\n\n\nguidelines not rules, results vary\nexperiment\narrow suggests avoid files smaller than 20MB and larger than 2GB\navoid partitions that produce more than 10,000 files\npartition by variables that you filter by, allows arrow to only read relevant files"
+  },
+  {
+    "objectID": "slides.html#rewriting-the-data-again",
+    "href": "slides.html#rewriting-the-data-again",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Rewriting the Data Again",
+    "text": "Rewriting the Data Again\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nseattle_csv |&gt;\n  group_by(CheckoutYear) |&gt;\n  write_dataset(path = seattle_parquet_part,\n                format = \"parquet\")"
+  },
+  {
+    "objectID": "slides.html#what-did-we-engineer",
+    "href": "slides.html#what-did-we-engineer",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "What Did We “Engineer”?",
+    "text": "What Did We “Engineer”?\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nsizes &lt;- tibble(\n  files = list.files(seattle_parquet_part, recursive = TRUE),\n  size_GB = file.size(file.path(seattle_parquet_part, files)) / 10**9\n)\n\nsizes\n\n# A tibble: 18 × 2\n   files                            size_GB\n   &lt;chr&gt;                              &lt;dbl&gt;\n 1 CheckoutYear=2005/part-0.parquet   0.114\n 2 CheckoutYear=2006/part-0.parquet   0.172\n 3 CheckoutYear=2007/part-0.parquet   0.186\n 4 CheckoutYear=2008/part-0.parquet   0.204\n 5 CheckoutYear=2009/part-0.parquet   0.224\n 6 CheckoutYear=2010/part-0.parquet   0.233\n 7 CheckoutYear=2011/part-0.parquet   0.250\n 8 CheckoutYear=2012/part-0.parquet   0.261\n 9 CheckoutYear=2013/part-0.parquet   0.282\n10 CheckoutYear=2014/part-0.parquet   0.296\n11 CheckoutYear=2015/part-0.parquet   0.308\n12 CheckoutYear=2016/part-0.parquet   0.315\n13 CheckoutYear=2017/part-0.parquet   0.319\n14 CheckoutYear=2018/part-0.parquet   0.306\n15 CheckoutYear=2019/part-0.parquet   0.302\n16 CheckoutYear=2020/part-0.parquet   0.158\n17 CheckoutYear=2021/part-0.parquet   0.240\n18 CheckoutYear=2022/part-0.parquet   0.252"
+  },
+  {
+    "objectID": "slides.html#gb-partitioned-parquet-files-arrow-dplyr",
+    "href": "slides.html#gb-partitioned-parquet-files-arrow-dplyr",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "4.5GB partitioned Parquet files + arrow + dplyr",
+    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n  5.322   0.836   0.962 \n\n\n\n42 million rows – not too shabby!"
+  },
+  {
+    "objectID": "slides.html#partition-design",
+    "href": "slides.html#partition-design",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Partition Design",
+    "text": "Partition Design\n\n\n\nPartitioning on variables commonly used in filter() often faster\nNumber of partitions also important (Arrow reads the metadata of each file)"
+  },
+  {
+    "objectID": "slides.html#performance-review-single-csv",
+    "href": "slides.html#performance-review-single-csv",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Performance Review: Single CSV",
+    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, MaterialType == \"BOOK\") |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 36.352   5.024  33.965"
+  },
+  {
+    "objectID": "slides.html#performance-review-partitioned-parquet",
+    "href": "slides.html#performance-review-partitioned-parquet",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Performance Review: Partitioned Parquet",
+    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, MaterialType == \"BOOK\") |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  1.008   0.134   0.336"
+  },
+  {
+    "objectID": "slides.html#engineering-data-tips-for-improved-storage-performance",
+    "href": "slides.html#engineering-data-tips-for-improved-storage-performance",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "Engineering Data Tips for Improved Storage & Performance",
+    "text": "Engineering Data Tips for Improved Storage & Performance\n\n\nconsider “column-oriented” file formats like Parquet\nconsider partitioning, experiment to get an appropriate partition design 🗂️\nwatch your schemas 👀"
+  },
+  {
+    "objectID": "slides.html#r-for-data-science-2e",
+    "href": "slides.html#r-for-data-science-2e",
+    "title": "Big Data with Arrow - Short Workshop",
+    "section": "R for Data Science (2e)",
+    "text": "R for Data Science (2e)\n\n\n\n\n\nChapter 23: Arrow\n\nhttps://r4ds.hadley.nz/"
+  }
+]
