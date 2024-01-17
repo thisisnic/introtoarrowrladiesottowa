@@ -3,8 +3,8 @@ title: Intro to Arrow in R
 subtitle: A short workshop
 editor: source
 ---
-  
-Contents written by Steph Hazlitt & Nic Crane
+
+![](images/logo.png){width="30%" fig-align="center"}
 
 ### Workshop Overview
   
