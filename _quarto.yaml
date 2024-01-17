@@ -4,13 +4,13 @@ project:
     - "*.qmd"
 
 website:
-  title: "Big Data with Arrow - Short Workshop"
+  title: "Intro to Arrow in R"
   navbar:
     background: dark
     logo: "images/logo.png"
     right:
       - icon: github
-        href: https://github.com/thisisnic/arrow_2hr_workshop
+        href: https://github.com/thisisnic/intro_to_arrow_workshop
         text: GitHub
 
     left:

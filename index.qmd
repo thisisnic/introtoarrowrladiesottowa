@@ -1,6 +1,6 @@
 ---
-title: Big Data in R with Arrow
-subtitle: 2 hour Workshop
+title: Intro to Arrow in R
+subtitle: A short workshop
 editor: source
 ---
   
