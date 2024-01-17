@@ -122,6 +122,14 @@ seattle_csv <- open_dataset(
 seattle_csv |> glimpse()
 ```
 
+## Data manipulation
+
+<!-- Add some data manipulation content here:
+* use head() to preview large dataset manipulations
+* lazy eval, queries and using collect() to pull into memory
+
+-->
+
 ## 9GB CSV file + arrow + dplyr
 
 ```{r}
