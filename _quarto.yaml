@@ -9,8 +9,6 @@ website:
     background: dark
     logo: "images/logo.png"
     right:
-      - icon: file-certificate
-        href: license-web.qmd
       - icon: github
         href: https://github.com/thisisnic/arrow_2hr_workshop
         text: GitHub
