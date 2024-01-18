@@ -9,6 +9,70 @@ format:
 engine: knitr
 ---
 
+## What is Apache Arrow?
+
+::: columns
+::: {.column width="50%"}
+> A multi-language toolbox for accelerated data interchange and in-memory processing
+:::
+
+::: {.column width="50%"}
+> Arrow is designed to both improve the performance of analytical algorithms and the efficiency of moving data from one system or programming language to another
+:::
+:::
+
+::: {style="font-size: 70%;"}
+<https://arrow.apache.org/overview/>
+:::
+
+## Apache Arrow Specification
+
+In-memory columnar format: a standardized, language-agnostic specification for representing structured, table-like data sets in-memory.
+
+<br>
+
+![](images/arrow-rectangle.png){.absolute left="200"}
+
+## A Multi-Language Toolbox
+
+![](images/arrow-libraries-structure.png)
+
+## Accelerated Data Interchange
+
+![](images/data-interchange-with-arrow.png)
+
+## Accelerated In-Memory Processing
+
+Arrow's Columnar Format is Fast
+
+![](images/columnar-fast.png){.absolute top="120" left="200" height="600"}
+
+::: notes
+The contiguous columnar layout enables vectorization using the latest SIMD (Single Instruction, Multiple Data) operations included in modern processors.
+:::
+
+## arrow 📦
+
+<br>
+
+![](images/arrow-r-pkg.png){.absolute top="0" left="300" width="700" height="900"}
+
+## arrow 📦
+
+![](images/arrow-read-write-updated.png)
+
+## Demo on NYC taxi dataset
+
+```{=html}
+<!-- 
+Give a highlight demo using the taxi dataset - show it's huge, show what we can do, but end with pointing out that we don't need 153Gb datasets to benefit and even "just" 9Gb is enough, to transition to the next section.
+-->
+```
+## Seattle<br>Checkouts<br>Big CSV
+
+![](images/seattle-checkouts.png){.absolute top="0" left="300"}
+
+## How big is the dataset?
 ```{r}
 #| label: setup
 #| echo: false
@@ -16,25 +80,6 @@ engine: knitr
 library(arrow)
 library(dplyr)
 ```
-
-
-## Arrow
-
-<!-- 
-Some of the more interesting content about what arrow is and how it works, but let's keep this super light
--->
-
-## Demo on NYC taxi dataset
-
-<!-- 
-Give a highlight demo using the taxi dataset - show it's huge, show what we can do, but end with pointing out that we don't need 153Gb datasets to benefit and even "just" 9Gb is enough, to transition to the next section.
--->
-
-## Seattle<br>Checkouts<br>Big CSV
-
-![](images/seattle-checkouts.png){.absolute top="0" left="300"}
-
-## How big is the dataset?
 
 ```{r}
 #| label: check-file-size
@@ -136,12 +181,13 @@ seattle_csv |> glimpse()
 
 ## Data manipulation
 
+```{=html}
 <!-- Add some data manipulation content here:
 * use head() to preview large dataset manipulations
 * lazy eval, queries and using collect() to pull into memory
 
 -->
-
+```
 ## 9GB CSV file + arrow + dplyr
 
 ```{r}
@@ -197,6 +243,7 @@ seattle_csv |>
 ![](images/parquet-columnar.png)
 
 ## Writing to Parquet
+
 ```{r}
 #| label: seattle-write-parquet-setup
 #| output: false
@@ -226,7 +273,6 @@ file.size(file.path(seattle_parquet, file)) / 10**9
 
 Parquet about half the size of the CSV file on-disk 💾
 
-
 ## File Storage:<br>Partitioning
 
 <br>
@@ -249,9 +295,9 @@ also called multi-files or sometimes shards
 
 Have you partitioned your data or used partitioned data before today?
 
-- 1️⃣ Yes
-- 2️⃣ No
-- 3️⃣ Not sure, the data engineers sort that out!
+-   1️⃣ Yes
+-   2️⃣ No
+-   3️⃣ Not sure, the data engineers sort that out!
 
 ## Art & Science of Partitioning
 
@@ -374,7 +420,7 @@ open_dataset("./data/seattle-library-checkouts",
 -   consider partitioning, experiment to get an appropriate partition design 🗂️
 -   watch your schemas 👀
 
-## Getting help and more resources 
+## Getting help and more resources
 
 <!-- Add in some links here -->
 

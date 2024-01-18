@@ -10,7 +10,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.433">
 
-  <title>Big Data with Arrow - Short Workshop – slides</title>
+  <title>Intro to Arrow in R – slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -389,6 +389,70 @@
     <div class="slides">
 
 
+<section id="what-is-apache-arrow" class="slide level2">
+<h2>What is Apache Arrow?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<blockquote>
+<p>A multi-language toolbox for accelerated data interchange and in-memory processing</p>
+</blockquote>
+</div><div class="column" style="width:50%;">
+<blockquote>
+<p>Arrow is designed to both improve the performance of analytical algorithms and the efficiency of moving data from one system or programming language to another</p>
+</blockquote>
+</div>
+</div>
+<div style="font-size: 70%;">
+<p><a href="https://arrow.apache.org/overview/" class="uri">https://arrow.apache.org/overview/</a></p>
+</div>
+</section>
+<section id="apache-arrow-specification" class="slide level2">
+<h2>Apache Arrow Specification</h2>
+<p>In-memory columnar format: a standardized, language-agnostic specification for representing structured, table-like data sets in-memory.</p>
+<p><br></p>
+<p><img data-src="images/arrow-rectangle.png" class="absolute" style="left: 200px; "></p>
+</section>
+<section id="a-multi-language-toolbox" class="slide level2">
+<h2>A Multi-Language Toolbox</h2>
+
+<img data-src="images/arrow-libraries-structure.png" class="r-stretch"></section>
+<section id="accelerated-data-interchange" class="slide level2">
+<h2>Accelerated Data Interchange</h2>
+
+<img data-src="images/data-interchange-with-arrow.png" class="r-stretch"></section>
+<section id="accelerated-in-memory-processing" class="slide level2">
+<h2>Accelerated In-Memory Processing</h2>
+<p>Arrow’s Columnar Format is Fast</p>
+<p><img data-src="images/columnar-fast.png" class="absolute" style="top: 120px; left: 200px; height: 600px; "></p>
+<aside class="notes">
+<p>The contiguous columnar layout enables vectorization using the latest SIMD (Single Instruction, Multiple Data) operations included in modern processors.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="arrow" class="slide level2">
+<h2>arrow 📦</h2>
+<p><br></p>
+<p><img data-src="images/arrow-r-pkg.png" class="absolute" style="top: 0px; left: 300px; width: 700px; height: 900px; "></p>
+</section>
+<section id="arrow-1" class="slide level2">
+<h2>arrow 📦</h2>
+
+<img data-src="images/arrow-read-write-updated.png" class="r-stretch"></section>
+<section id="demo-on-nyc-taxi-dataset" class="slide level2">
+<h2>Demo on NYC taxi dataset</h2>
+<!-- 
+Give a highlight demo using the taxi dataset - show it's huge, show what we can do, but end with pointing out that we don't need 153Gb datasets to benefit and even "just" 9Gb is enough, to transition to the next section.
+-->
+</section>
 <section id="seattle-checkouts-big-csv" class="slide level2">
 <h2>Seattle<br>Checkouts<br>Big CSV</h2>
 <p><img data-src="images/seattle-checkouts.png" class="absolute" style="top: 0px; left: 300px; "></p>
@@ -534,6 +598,14 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 </div>
 </div>
 </section>
+<section id="data-manipulation" class="slide level2">
+<h2>Data manipulation</h2>
+<!-- Add some data manipulation content here:
+* use head() to preview large dataset manipulations
+* lazy eval, queries and using collect() to pull into memory
+
+-->
+</section>
 <section id="gb-csv-file-arrow-dplyr" class="slide level2">
 <h2>9GB CSV file + arrow + dplyr</h2>
 <div class="cell">
@@ -578,7 +650,7 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 29.566   2.171  28.388 </code></pre>
+ 38.621   2.957  37.113 </code></pre>
 </div>
 </div>
 <p>42 million rows – not bad, but could be faster….</p>
@@ -767,7 +839,7 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <span id="cb22-9"><a href="#cb22-9"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  5.322   0.836   0.962 </code></pre>
+  5.759   1.021   1.125 </code></pre>
 </div>
 </div>
 <p><br></p>
@@ -803,7 +875,7 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 36.352   5.024  33.965 </code></pre>
+ 35.549   4.602  33.124 </code></pre>
 </div>
 </div>
 </section>
@@ -822,7 +894,7 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <span id="cb26-8"><a href="#cb26-8"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.008   0.134   0.336 </code></pre>
+  0.997   0.091   0.310 </code></pre>
 </div>
 </div>
 </section>
@@ -834,6 +906,10 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <li>consider partitioning, experiment to get an appropriate partition design 🗂️</li>
 <li>watch your schemas 👀</li>
 </ul>
+</section>
+<section id="getting-help-and-more-resources" class="slide level2">
+<h2>Getting help and more resources</h2>
+<!-- Add in some links here -->
 </section>
 <section id="r-for-data-science-2e" class="slide level2">
 <h2>R for Data Science (2e)</h2>
@@ -847,9 +923,13 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <p><a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a></p>
 </div>
 </div>
+</section>
+<section id="scaling-up-with-r-and-arrow" class="slide level2">
+<h2>Scaling Up with R and Arrow</h2>
+<!-- Add link here -->
 
-<p><img src="images/logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
+
+<img src="images/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
 </div>
 </section>
