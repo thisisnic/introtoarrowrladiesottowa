@@ -182,9 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="workshop-overview" class="level3">
 <h3 class="anchored" data-anchor-id="workshop-overview">Workshop Overview</h3>
-<p>Data analysis pipelines with larger-than-memory data are becoming more and more commonplace. In this workshop you will learn how to use Apache Arrow, a multi-language toolbox for working with larger-than-memory tabular data, to create seamless “big” data analysis pipelines with R.</p>
-<p>The workshop will focus on using the the arrow R package—a mature R interface to Apache Arrow—to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You’ll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.</p>
-<p><em>This course is for you if you:</em></p>
+<p>This workshop will focus on using the arrow R package to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You’ll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R. <em>This course is for you if you:</em></p>
 <ul>
 <li>want to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow</li>
 <li>want to learn about Parquet and other file formats that are powerful alternatives to CSV files</li>
@@ -205,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="seattle-checkouts-by-title-data" class="level4">
 <h4 class="anchored" data-anchor-id="seattle-checkouts-by-title-data">Seattle Checkouts by Title Data</h4>
-<p>This is the data we will use to explore data storage and engineering options. It’s a good sized, single CSV file—<em>9GB</em> on-disk in total, which can be downloaded from the an AWS S3 bucket via https:</p>
+<p>This is the data we will use in the workshop. It’s a good-sized, single CSV file—<em>9GB</em> on-disk in total, which can be downloaded from an AWS S3 bucket via https:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">1800</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
@@ -216,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tiny-data-option" class="level4">
 <h4 class="anchored" data-anchor-id="tiny-data-option">Tiny Data Option</h4>
-<p>If you don’t have time or disk space to download the 9Gb dataset (and still have disk space do the exercises), you can run the code and exercises in the course with “tiny” version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data—although note you may not see the same performance improvements that you would get when working with larger data.</p>
+<p>If you don’t have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with the “tiny” version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data—although note you may not see the same performance improvements that you would get when working with larger data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">1800</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
