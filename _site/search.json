@@ -1,10 +1,52 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
+    "objectID": "slides.html#what-is-apache-arrow",
+    "href": "slides.html#what-is-apache-arrow",
     "title": "Intro to Arrow in R",
-    "section": "",
-    "text": "Workshop Overview\nThis workshop will focus on using the arrow R package to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You’ll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.\nThis course is for you if you:\n\nwant to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow\nwant to learn about Parquet and other file formats that are powerful alternatives to CSV files\nwant to learn how to engineer your tabular data storage for more performant access and analysis with Apache Arrow\n\n\n\nWorkshop Prework\nDetailed instructions for software requirements and data sources are show below.\n\nPackages\nTo install the required core packages for the workshop, run the following:\n\ninstall.packages(c(\n  \"arrow\", \"dplyr\", \"stringr\", \"lubridate\", \"tictoc\"\n))\n\n\n\nSeattle Checkouts by Title Data\nThis is the data we will use in the workshop. It’s a good-sized, single CSV file—9GB on-disk in total, which can be downloaded from an AWS S3 bucket via https:\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv\",\n  destfile = \"./data/seattle-library-checkouts.csv\"\n)\n\n\n\nTiny Data Option\nIf you don’t have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with the “tiny” version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data—although note you may not see the same performance improvements that you would get when working with larger data.\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv\",\n  destfile = \"./data/seattle-library-checkouts-tiny.csv\"\n)\n\nIf you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software & packages installed and the data downloaded on to your laptop.\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
+    "section": "What is Apache Arrow?",
+    "text": "What is Apache Arrow?\n\n\n\nA multi-language toolbox for accelerated data interchange and in-memory processing\n\n\n\nArrow is designed to both improve the performance of analytical algorithms and the efficiency of moving data from one system or programming language to another\n\n\n\n\nhttps://arrow.apache.org/overview/"
+  },
+  {
+    "objectID": "slides.html#apache-arrow-specification",
+    "href": "slides.html#apache-arrow-specification",
+    "title": "Intro to Arrow in R",
+    "section": "Apache Arrow Specification",
+    "text": "Apache Arrow Specification\nIn-memory columnar format: a standardized, language-agnostic specification for representing structured, table-like data sets in-memory."
+  },
+  {
+    "objectID": "slides.html#a-multi-language-toolbox",
+    "href": "slides.html#a-multi-language-toolbox",
+    "title": "Intro to Arrow in R",
+    "section": "A Multi-Language Toolbox",
+    "text": "A Multi-Language Toolbox"
+  },
+  {
+    "objectID": "slides.html#accelerated-data-interchange",
+    "href": "slides.html#accelerated-data-interchange",
+    "title": "Intro to Arrow in R",
+    "section": "Accelerated Data Interchange",
+    "text": "Accelerated Data Interchange"
+  },
+  {
+    "objectID": "slides.html#accelerated-in-memory-processing",
+    "href": "slides.html#accelerated-in-memory-processing",
+    "title": "Intro to Arrow in R",
+    "section": "Accelerated In-Memory Processing",
+    "text": "Accelerated In-Memory Processing\nArrow’s Columnar Format is Fast\n\n\nThe contiguous columnar layout enables vectorization using the latest SIMD (Single Instruction, Multiple Data) operations included in modern processors."
+  },
+  {
+    "objectID": "slides.html#arrow",
+    "href": "slides.html#arrow",
+    "title": "Intro to Arrow in R",
+    "section": "arrow 📦",
+    "text": "arrow 📦"
+  },
+  {
+    "objectID": "slides.html#arrow-1",
+    "href": "slides.html#arrow-1",
+    "title": "Intro to Arrow in R",
+    "section": "arrow 📦",
+    "text": "arrow 📦"
   },
   {
     "objectID": "slides.html#seattle-checkouts-big-csv",
@@ -77,18 +119,46 @@
     "text": "Previewing the data\n\nseattle_csv |&gt; glimpse()\n\nFileSystemDataset with 1 csv file\n41,389,465 rows x 12 columns\n$ UsageClass      &lt;string&gt; \"Physical\", \"Physical\", \"Digital\", \"Physical\", \"Physi…\n$ CheckoutType    &lt;string&gt; \"Horizon\", \"Horizon\", \"OverDrive\", \"Horizon\", \"Horizo…\n$ MaterialType    &lt;string&gt; \"BOOK\", \"BOOK\", \"EBOOK\", \"BOOK\", \"SOUNDDISC\", \"BOOK\",…\n$ CheckoutYear     &lt;int64&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016,…\n$ CheckoutMonth    &lt;int64&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,…\n$ Checkouts        &lt;int64&gt; 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 2, 3, 2, 1, 3, 2, 3,…\n$ Title           &lt;string&gt; \"Super rich : a guide to having it all / Russell Simm…\n$ ISBN            &lt;string&gt; \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"…\n$ Creator         &lt;string&gt; \"Simmons, Russell\", \"Barclay, James, 1965-\", \"Tim Par…\n$ Subjects        &lt;string&gt; \"Self realization, Conduct of life, Attitude Psycholo…\n$ Publisher       &lt;string&gt; \"Gotham Books,\", \"Pyr,\", \"Random House, Inc.\", \"Dial …\n$ PublicationYear &lt;string&gt; \"c2011.\", \"2010.\", \"2015\", \"2005.\", \"c2004.\", \"c2005.…"
   },
   {
+    "objectID": "slides.html#arrow-dplyr-backend",
+    "href": "slides.html#arrow-dplyr-backend",
+    "title": "Intro to Arrow in R",
+    "section": "Arrow dplyr backend",
+    "text": "Arrow dplyr backend"
+  },
+  {
+    "objectID": "slides.html#querying-the-data",
+    "href": "slides.html#querying-the-data",
+    "title": "Intro to Arrow in R",
+    "section": "Querying the data",
+    "text": "Querying the data\n\nseattle_csv |&gt;\n  mutate(IsBook = endsWith(MaterialType, \"BOOK\")) |&gt;\n  select(MaterialType, IsBook)\n\nFileSystemDataset (query)\nMaterialType: string\nIsBook: bool (ends_with(MaterialType, {pattern=\"BOOK\", ignore_case=false}))\n\nSee $.data for the source Arrow object"
+  },
+  {
+    "objectID": "slides.html#preview-the-query",
+    "href": "slides.html#preview-the-query",
+    "title": "Intro to Arrow in R",
+    "section": "Preview the query",
+    "text": "Preview the query\n\nseattle_csv |&gt;\n  head(20) |&gt;\n  mutate(IsBook = endsWith(MaterialType, \"BOOK\")) |&gt;\n  select(MaterialType, IsBook) |&gt;\n  collect()\n\n# A tibble: 20 × 2\n   MaterialType IsBook\n   &lt;chr&gt;        &lt;lgl&gt; \n 1 BOOK         TRUE  \n 2 BOOK         TRUE  \n 3 EBOOK        TRUE  \n 4 BOOK         TRUE  \n 5 SOUNDDISC    FALSE \n 6 BOOK         TRUE  \n 7 BOOK         TRUE  \n 8 EBOOK        TRUE  \n 9 BOOK         TRUE  \n10 EBOOK        TRUE  \n11 BOOK         TRUE  \n12 BOOK         TRUE  \n13 BOOK         TRUE  \n14 AUDIOBOOK    TRUE  \n15 BOOK         TRUE  \n16 EBOOK        TRUE  \n17 SOUNDDISC    FALSE \n18 VIDEODISC    FALSE \n19 SOUNDDISC    FALSE \n20 AUDIOBOOK    TRUE"
+  },
+  {
+    "objectID": "slides.html#data-manipulation",
+    "href": "slides.html#data-manipulation",
+    "title": "Intro to Arrow in R",
+    "section": "Data manipulation",
+    "text": "Data manipulation\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect()\n\n# A tibble: 18 × 2\n   CheckoutYear Checkouts\n          &lt;int&gt;     &lt;int&gt;\n 1         2005   2129128\n 2         2006   3385869\n 3         2007   3679981\n 4         2008   4156859\n 5         2009   4500788\n 6         2010   4389760\n 7         2011   4484366\n 8         2012   4696376\n 9         2013   5394411\n10         2014   5606168\n11         2015   5784864\n12         2016   5915722\n13         2017   6280679\n14         2018   6831226\n15         2019   7339010\n16         2020   5549585\n17         2021   6659627\n18         2022   6301822"
+  },
+  {
     "objectID": "slides.html#gb-csv-file-arrow-dplyr",
     "href": "slides.html#gb-csv-file-arrow-dplyr",
     "title": "Intro to Arrow in R",
     "section": "9GB CSV file + arrow + dplyr",
-    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect()\n\n# A tibble: 18 × 2\n   CheckoutYear Checkouts\n          &lt;int&gt;     &lt;int&gt;\n 1         2005   3798685\n 2         2006   6599318\n 3         2007   7126627\n 4         2008   8438486\n 5         2009   9135167\n 6         2010   8608966\n 7         2011   8321732\n 8         2012   8163046\n 9         2013   9057096\n10         2014   9136081\n11         2015   9084179\n12         2016   9021051\n13         2017   9231648\n14         2018   9149176\n15         2019   9199083\n16         2020   6053717\n17         2021   7361031\n18         2022   7001989"
+    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect()\n\n# A tibble: 18 × 2\n   CheckoutYear Checkouts\n          &lt;int&gt;     &lt;int&gt;\n 1         2005   2129128\n 2         2006   3385869\n 3         2007   3679981\n 4         2008   4156859\n 5         2009   4500788\n 6         2010   4389760\n 7         2011   4484366\n 8         2012   4696376\n 9         2013   5394411\n10         2014   5606168\n11         2015   5784864\n12         2016   5915722\n13         2017   6280679\n14         2018   6831226\n15         2019   7339010\n16         2020   5549585\n17         2021   6659627\n18         2022   6301822"
   },
   {
     "objectID": "slides.html#gb-csv-file-arrow-dplyr-1",
     "href": "slides.html#gb-csv-file-arrow-dplyr-1",
     "title": "Intro to Arrow in R",
     "section": "9GB CSV file + arrow + dplyr",
-    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 38.621   2.957  37.113 \n\n\n42 million rows – not bad, but could be faster…."
+    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 43.194   3.268  38.781 \n\n\n42 million rows – not bad, but could be faster…."
   },
   {
     "objectID": "slides.html#file-format-apache-parquet",
@@ -172,7 +242,7 @@
     "href": "slides.html#gb-partitioned-parquet-files-arrow-dplyr",
     "title": "Intro to Arrow in R",
     "section": "4.5GB partitioned Parquet files + arrow + dplyr",
-    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n  5.759   1.021   1.125 \n\n\n\n42 million rows – not too shabby!"
+    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 14.953   1.371   2.007 \n\n\n\n42 million rows – not too shabby!"
   },
   {
     "objectID": "slides.html#partition-design",
@@ -186,14 +256,14 @@
     "href": "slides.html#performance-review-single-csv",
     "title": "Intro to Arrow in R",
     "section": "Performance Review: Single CSV",
-    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, MaterialType == \"BOOK\") |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 35.549   4.602  33.124"
+    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 43.332   6.325  40.069"
   },
   {
     "objectID": "slides.html#performance-review-partitioned-parquet",
     "href": "slides.html#performance-review-partitioned-parquet",
     "title": "Intro to Arrow in R",
     "section": "Performance Review: Partitioned Parquet",
-    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, MaterialType == \"BOOK\") |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  0.997   0.091   0.310"
+    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  0.974   0.134   0.309"
   },
   {
     "objectID": "slides.html#engineering-data-tips-for-improved-storage-performance",
@@ -203,76 +273,6 @@
     "text": "Engineering Data Tips for Improved Storage & Performance\n\n\nconsider “column-oriented” file formats like Parquet\nconsider partitioning, experiment to get an appropriate partition design 🗂️\nwatch your schemas 👀"
   },
   {
-    "objectID": "slides.html#r-for-data-science-2e",
-    "href": "slides.html#r-for-data-science-2e",
-    "title": "Intro to Arrow in R",
-    "section": "R for Data Science (2e)",
-    "text": "R for Data Science (2e)\n\n\n\n\n\nChapter 23: Arrow\n\nhttps://r4ds.hadley.nz/"
-  },
-  {
-    "objectID": "slides.html#what-is-apache-arrow",
-    "href": "slides.html#what-is-apache-arrow",
-    "title": "Intro to Arrow in R",
-    "section": "What is Apache Arrow?",
-    "text": "What is Apache Arrow?\n\n\n\nA multi-language toolbox for accelerated data interchange and in-memory processing\n\n\n\nArrow is designed to both improve the performance of analytical algorithms and the efficiency of moving data from one system or programming language to another\n\n\n\n\nhttps://arrow.apache.org/overview/"
-  },
-  {
-    "objectID": "slides.html#apache-arrow-specification",
-    "href": "slides.html#apache-arrow-specification",
-    "title": "Intro to Arrow in R",
-    "section": "Apache Arrow Specification",
-    "text": "Apache Arrow Specification\nIn-memory columnar format: a standardized, language-agnostic specification for representing structured, table-like data sets in-memory."
-  },
-  {
-    "objectID": "slides.html#a-multi-language-toolbox",
-    "href": "slides.html#a-multi-language-toolbox",
-    "title": "Intro to Arrow in R",
-    "section": "A Multi-Language Toolbox",
-    "text": "A Multi-Language Toolbox"
-  },
-  {
-    "objectID": "slides.html#accelerated-data-interchange",
-    "href": "slides.html#accelerated-data-interchange",
-    "title": "Intro to Arrow in R",
-    "section": "Accelerated Data Interchange",
-    "text": "Accelerated Data Interchange"
-  },
-  {
-    "objectID": "slides.html#accelerated-in-memory-processing",
-    "href": "slides.html#accelerated-in-memory-processing",
-    "title": "Intro to Arrow in R",
-    "section": "Accelerated In-Memory Processing",
-    "text": "Accelerated In-Memory Processing\nArrow’s Columnar Format is Fast\n\n\nThe contiguous columnar layout enables vectorization using the latest SIMD (Single Instruction, Multiple Data) operations included in modern processors."
-  },
-  {
-    "objectID": "slides.html#arrow",
-    "href": "slides.html#arrow",
-    "title": "Intro to Arrow in R",
-    "section": "arrow 📦",
-    "text": "arrow 📦"
-  },
-  {
-    "objectID": "slides.html#arrow-1",
-    "href": "slides.html#arrow-1",
-    "title": "Intro to Arrow in R",
-    "section": "arrow 📦",
-    "text": "arrow 📦"
-  },
-  {
-    "objectID": "slides.html#demo-on-nyc-taxi-dataset",
-    "href": "slides.html#demo-on-nyc-taxi-dataset",
-    "title": "Intro to Arrow in R",
-    "section": "Demo on NYC taxi dataset",
-    "text": "Demo on NYC taxi dataset"
-  },
-  {
-    "objectID": "slides.html#data-manipulation",
-    "href": "slides.html#data-manipulation",
-    "title": "Intro to Arrow in R",
-    "section": "Data manipulation",
-    "text": "Data manipulation"
-  },
-  {
     "objectID": "slides.html#getting-help-and-more-resources",
     "href": "slides.html#getting-help-and-more-resources",
     "title": "Intro to Arrow in R",
@@ -280,10 +280,31 @@
     "text": "Getting help and more resources"
   },
   {
+    "objectID": "slides.html#r-for-data-science-2e",
+    "href": "slides.html#r-for-data-science-2e",
+    "title": "Intro to Arrow in R",
+    "section": "R for Data Science (2e)",
+    "text": "R for Data Science (2e)\n\n\n\n\n\nChapter 23: Arrow\n\nhttps://r4ds.hadley.nz/"
+  },
+  {
     "objectID": "slides.html#scaling-up-with-r-and-arrow",
     "href": "slides.html#scaling-up-with-r-and-arrow",
     "title": "Intro to Arrow in R",
     "section": "Scaling Up with R and Arrow",
-    "text": "Scaling Up with R and Arrow"
+    "text": "Scaling Up with R and Arrow\n\n\n\n\nCurrently being written but preview available!\n\nhttps://arrowrbook.com"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Intro to Arrow in R",
+    "section": "",
+    "text": "Workshop Overview\nThis workshop will focus on using the arrow R package to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You’ll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.\nThis course is for you if you:\n\nwant to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow\nwant to learn about Parquet and other file formats that are powerful alternatives to CSV files\nwant to learn how to engineer your tabular data storage for more performant access and analysis with Apache Arrow\n\n\n\nWorkshop Prework\nDetailed instructions for software requirements and data sources are show below.\n\nPackages\nTo install the required core packages for the workshop, run the following:\n\ninstall.packages(c(\n  \"arrow\", \"dplyr\", \"stringr\", \"lubridate\", \"tictoc\"\n))\n\n\n\nSeattle Checkouts by Title Data\nThis is the data we will use in the workshop. It’s a good-sized, single CSV file—9GB on-disk in total, which can be downloaded from an AWS S3 bucket via https:\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv\",\n  destfile = \"./data/seattle-library-checkouts.csv\"\n)\n\n\n\nTiny Data Option\nIf you don’t have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with the “tiny” version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data—although note you may not see the same performance improvements that you would get when working with larger data.\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv\",\n  destfile = \"./data/seattle-library-checkouts-tiny.csv\"\n)\n\nIf you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software & packages installed and the data downloaded on to your laptop.\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
+  },
+  {
+    "objectID": "license-web.html",
+    "href": "license-web.html",
+    "title": "License",
+    "section": "",
+    "text": "This work is licensed under a Creative Commons Attribution 4.0 International License."
   }
 ]

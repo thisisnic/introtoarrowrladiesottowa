@@ -66,6 +66,7 @@ The contiguous columnar layout enables vectorization using the latest SIMD (Sing
 ![](images/seattle-checkouts.png){.absolute top="0" left="300"}
 
 ## How big is the dataset?
+
 ```{r}
 #| label: setup
 #| echo: false
@@ -171,6 +172,7 @@ seattle_csv <- open_dataset(
 #| label: glimpse
 seattle_csv |> glimpse()
 ```
+
 ## Arrow dplyr backend
 
 ![](images/dplyr-backend.png)
@@ -199,7 +201,7 @@ seattle_csv |>
 ## Data manipulation
 
 ```{r}
-#| label: seattle-dplyr
+#| label: seattle-data-manip
 seattle_csv |>
   filter(endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutYear) |>
@@ -467,4 +469,20 @@ open_dataset("./data/seattle-library-checkouts",
 
 ## Scaling Up with R and Arrow
 
-[Currently being written!](https://arrowrbook.com)
+::: columns
+::: {.column width="50%"}
+![](images/dummybookcover.png)
+:::
+
+::: {.column width="50%"}
+[Currently being written but preview available!](https://arrowrbook.com)
+
+<br>
+
+<https://arrowrbook.com>
+:::
+:::
+
+
+
+
