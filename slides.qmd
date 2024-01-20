@@ -171,21 +171,49 @@ seattle_csv <- open_dataset(
 #| label: glimpse
 seattle_csv |> glimpse()
 ```
+## Arrow dplyr backend
+
+![](images/dplyr-backend.png)
+
+## Querying the data
+
+```{r}
+#| label: query
+seattle_csv |>
+  mutate(IsBook = endsWith(MaterialType, "BOOK")) |>
+  select(MaterialType, IsBook)
+```
+
+## Preview the query
+
+```{r}
+#| label: preview-query
+#| code-line-numbers: 2, 5
+seattle_csv |>
+  head(20) |>
+  mutate(IsBook = endsWith(MaterialType, "BOOK")) |>
+  select(MaterialType, IsBook) |>
+  collect()
+```
 
 ## Data manipulation
 
-```{=html}
-<!-- Add some data manipulation content here:
-* use head() to preview large dataset manipulations
-* lazy eval, queries and using collect() to pull into memory
-
--->
+```{r}
+#| label: seattle-dplyr
+seattle_csv |>
+  filter(endsWith(MaterialType, "BOOK")) |>
+  group_by(CheckoutYear) |>
+  summarise(Checkouts = sum(Checkouts)) |>
+  arrange(CheckoutYear) |> 
+  collect()
 ```
+
 ## 9GB CSV file + arrow + dplyr
 
 ```{r}
 #| label: seattle-dplyr
 seattle_csv |>
+  filter(endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutYear) |>
   summarise(Checkouts = sum(Checkouts)) |>
   arrange(CheckoutYear) |> 
@@ -198,6 +226,7 @@ seattle_csv |>
 #| label: seattle-dplyr-timed
 #| code-line-numbers: "6"
 seattle_csv |>
+  filter(endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutYear) |>
   summarise(Checkouts = sum(Checkouts)) |>
   arrange(CheckoutYear) |> 
@@ -343,6 +372,7 @@ seattle_parquet_part <- "./data/seattle-library-checkouts"
 
 open_dataset(seattle_parquet_part,
              format = "parquet") |>
+  filter(endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutYear) |>
   summarise(Checkouts = sum(Checkouts)) |>
   arrange(CheckoutYear) |> 
@@ -379,7 +409,7 @@ open_dataset(
   sources = "./data/seattle-library-checkouts.csv", 
   format = "csv"
 ) |> 
-  filter(CheckoutYear == 2021, MaterialType == "BOOK") |>
+  filter(CheckoutYear == 2021, endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutMonth) |>
   summarize(TotalCheckouts = sum(Checkouts)) |>
   arrange(desc(CheckoutMonth)) |>
@@ -397,7 +427,7 @@ How long does it take to calculate the number of books checked out in each month
 #| label: seattle-parquet-partitioned-dplyr-timed
 open_dataset("./data/seattle-library-checkouts",
              format = "parquet") |> 
-  filter(CheckoutYear == 2021, MaterialType == "BOOK") |>
+  filter(CheckoutYear == 2021, endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutMonth) |>
   summarize(TotalCheckouts = sum(Checkouts)) |>
   arrange(desc(CheckoutMonth)) |>
