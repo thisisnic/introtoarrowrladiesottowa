@@ -61,13 +61,6 @@ The contiguous columnar layout enables vectorization using the latest SIMD (Sing
 
 ![](images/arrow-read-write-updated.png)
 
-## Demo on NYC taxi dataset
-
-```{=html}
-<!-- 
-Give a highlight demo using the taxi dataset - show it's huge, show what we can do, but end with pointing out that we don't need 153Gb datasets to benefit and even "just" 9Gb is enough, to transition to the next section.
--->
-```
 ## Seattle<br>Checkouts<br>Big CSV
 
 ![](images/seattle-checkouts.png){.absolute top="0" left="300"}
@@ -444,4 +437,4 @@ open_dataset("./data/seattle-library-checkouts",
 
 ## Scaling Up with R and Arrow
 
-<!-- Add link here -->
+[Currently being written!](https://arrowrbook.com)
