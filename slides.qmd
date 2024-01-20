@@ -190,7 +190,7 @@ seattle_csv |>
 
 ```{r}
 #| label: preview-query
-#| code-line-numbers: 2, 5
+#| code-line-numbers: "|2,5"
 seattle_csv |>
   head(20) |>
   mutate(IsBook = endsWith(MaterialType, "BOOK")) |>
@@ -482,7 +482,3 @@ open_dataset("./data/seattle-library-checkouts",
 <https://arrowrbook.com>
 :::
 :::
-
-
-
-
