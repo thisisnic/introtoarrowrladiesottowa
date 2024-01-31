@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "slides.html#welcome",
+    "href": "slides.html#welcome",
+    "title": "Intro to Arrow in R",
+    "section": "Welcome!",
+    "text": "Welcome!\nToday we’re going to cover:"
+  },
+  {
+    "objectID": "slides.html#workshop-format",
+    "href": "slides.html#workshop-format",
+    "title": "Intro to Arrow in R",
+    "section": "Workshop format",
+    "text": "Workshop format\n\nFollow-along coding\nGaps to ask question"
+  },
+  {
+    "objectID": "slides.html#dataset-to-follow-along-with",
+    "href": "slides.html#dataset-to-follow-along-with",
+    "title": "Intro to Arrow in R",
+    "section": "Dataset to follow along with",
+    "text": "Dataset to follow along with\n\n(URL here)"
+  },
+  {
     "objectID": "slides.html#what-is-apache-arrow",
     "href": "slides.html#what-is-apache-arrow",
     "title": "Intro to Arrow in R",
@@ -158,7 +179,7 @@
     "href": "slides.html#gb-csv-file-arrow-dplyr-1",
     "title": "Intro to Arrow in R",
     "section": "9GB CSV file + arrow + dplyr",
-    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 41.632   3.073  37.261 \n\n\n42 million rows – not bad, but could be faster…."
+    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 14.844   1.379  13.278 \n\n\n42 million rows – not bad, but could be faster…."
   },
   {
     "objectID": "slides.html#file-format-apache-parquet",
@@ -242,7 +263,7 @@
     "href": "slides.html#gb-partitioned-parquet-files-arrow-dplyr",
     "title": "Intro to Arrow in R",
     "section": "4.5GB partitioned Parquet files + arrow + dplyr",
-    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 15.907   1.738   2.593 \n\n\n\n42 million rows – not too shabby!"
+    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n  5.555   0.483   0.666 \n\n\n\n42 million rows – not too shabby!"
   },
   {
     "objectID": "slides.html#partition-design",
@@ -256,14 +277,14 @@
     "href": "slides.html#performance-review-single-csv",
     "title": "Intro to Arrow in R",
     "section": "Performance Review: Single CSV",
-    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 43.384   6.315  40.200"
+    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 15.316   2.323  14.162"
   },
   {
     "objectID": "slides.html#performance-review-partitioned-parquet",
     "href": "slides.html#performance-review-partitioned-parquet",
     "title": "Intro to Arrow in R",
     "section": "Performance Review: Partitioned Parquet",
-    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  0.991   0.130   0.278"
+    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  0.342   0.034   0.107"
   },
   {
     "objectID": "slides.html#engineering-data-tips-for-improved-storage-performance",
@@ -271,6 +292,13 @@
     "title": "Intro to Arrow in R",
     "section": "Engineering Data Tips for Improved Storage & Performance",
     "text": "Engineering Data Tips for Improved Storage & Performance\n\n\nconsider “column-oriented” file formats like Parquet\nconsider partitioning, experiment to get an appropriate partition design 🗂️\nwatch your schemas 👀"
+  },
+  {
+    "objectID": "slides.html#summary",
+    "href": "slides.html#summary",
+    "title": "Intro to Arrow in R",
+    "section": "Summary",
+    "text": "Summary\nWhat we covered:"
   },
   {
     "objectID": "slides.html#getting-help-and-more-resources",

@@ -9,6 +9,23 @@ format:
 engine: knitr
 ---
 
+## Welcome!
+
+Today we're going to cover:
+
+*
+*
+*
+
+## Workshop format
+
+* Follow-along coding
+* Gaps to ask question
+
+## Dataset to follow along with
+
+* (URL here)
+
 ## What is Apache Arrow?
 
 ::: columns
@@ -444,6 +461,14 @@ open_dataset("./data/seattle-library-checkouts",
 -   consider "column-oriented" file formats like Parquet
 -   consider partitioning, experiment to get an appropriate partition design 🗂️
 -   watch your schemas 👀
+
+## Summary
+
+What we covered:
+
+*
+*
+*
 
 ## Getting help and more resources
 
