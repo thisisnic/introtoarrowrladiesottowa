@@ -9,22 +9,34 @@ format:
 engine: knitr
 ---
 
+## Introduction to Arrow in R
+
+![](images/logo.png){fig-align="center" width="500" height="500"}
+
 ## Welcome!
 
 Today we're going to cover:
 
-*
-*
-*
+- Working with larger-than-memory datasets with Arrow
+- How to get the best performance out in your analyses   
+- Where to find more information   
 
 ## Workshop format
 
-* Follow-along coding
-* Gaps to ask question
+-   Follow-along coding
+-   Gaps to ask question
 
 ## Dataset to follow along with
 
-* (URL here)
+```{r}
+#| label: get-data
+#| eval: false
+options(timeout = 1800)
+download.file(
+  url = "https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv",
+  destfile = "./data/seattle-library-checkouts.csv"
+)
+```
 
 ## What is Apache Arrow?
 
@@ -324,7 +336,12 @@ Dividing data into smaller pieces, making it more easily accessible and manageab
 :::
 
 ::: {.column width="50%"}
-![](images/partitions.png){.absolute top="0"}
+
+```{r}
+#| label: show_dir_tree_1
+fs::dir_tree("data/seattle-library-checkouts/")
+```
+
 :::
 :::
 
@@ -412,7 +429,10 @@ open_dataset(seattle_parquet_part,
 :::
 
 ::: {.column width="50%"}
-![](images/partitions.png){.absolute top="0"}
+```{r}
+#| label: show_dir_tree
+fs::dir_tree("data/seattle-library-checkouts/")
+```
 :::
 :::
 
@@ -466,9 +486,11 @@ open_dataset("./data/seattle-library-checkouts",
 
 What we covered:
 
-*
-*
-*
+-   
+
+-   
+
+-   
 
 ## Getting help and more resources
 
