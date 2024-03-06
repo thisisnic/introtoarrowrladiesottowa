@@ -336,7 +336,12 @@ Dividing data into smaller pieces, making it more easily accessible and manageab
 :::
 
 ::: {.column width="50%"}
-![](images/partitions.png){.absolute top="0"}
+
+```{r}
+#| label: show_dir_tree_1
+fs::dir_tree("data/seattle-library-checkouts/")
+```
+
 :::
 :::
 
@@ -424,7 +429,10 @@ open_dataset(seattle_parquet_part,
 :::
 
 ::: {.column width="50%"}
-![](images/partitions.png){.absolute top="0"}
+```{r}
+#| label: show_dir_tree
+fs::dir_tree("data/seattle-library-checkouts/")
+```
 :::
 :::
 

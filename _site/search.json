@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "slides.html#introduction-to-arrow-in-r",
+    "href": "slides.html#introduction-to-arrow-in-r",
+    "title": "Intro to Arrow in R",
+    "section": "Introduction to Arrow in R",
+    "text": "Introduction to Arrow in R"
+  },
+  {
     "objectID": "slides.html#welcome",
     "href": "slides.html#welcome",
     "title": "Intro to Arrow in R",
@@ -179,7 +186,7 @@
     "href": "slides.html#gb-csv-file-arrow-dplyr-1",
     "title": "Intro to Arrow in R",
     "section": "9GB CSV file + arrow + dplyr",
-    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 31.164   2.201  28.219 \n\n\n42 million rows – not bad, but could be faster…."
+    "text": "9GB CSV file + arrow + dplyr\n\nseattle_csv |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 46.948   3.350  42.274 \n\n\n42 million rows – not bad, but could be faster…."
   },
   {
     "objectID": "slides.html#file-format-apache-parquet",
@@ -228,7 +235,7 @@
     "href": "slides.html#file-storage-partitioning",
     "title": "Intro to Arrow in R",
     "section": "File Storage:Partitioning",
-    "text": "File Storage:Partitioning\n\n\n\nDividing data into smaller pieces, making it more easily accessible and manageable\n\n\n\n\n\nalso called multi-files or sometimes shards"
+    "text": "File Storage:Partitioning\n\n\n\nDividing data into smaller pieces, making it more easily accessible and manageable\n\n\nfs::dir_tree(\"data/seattle-library-checkouts/\")\n\ndata/seattle-library-checkouts/\n├── CheckoutYear=2005\n│   └── part-0.parquet\n├── CheckoutYear=2006\n│   └── part-0.parquet\n├── CheckoutYear=2007\n│   └── part-0.parquet\n├── CheckoutYear=2008\n│   └── part-0.parquet\n├── CheckoutYear=2009\n│   └── part-0.parquet\n├── CheckoutYear=2010\n│   └── part-0.parquet\n├── CheckoutYear=2011\n│   └── part-0.parquet\n├── CheckoutYear=2012\n│   └── part-0.parquet\n├── CheckoutYear=2013\n│   └── part-0.parquet\n├── CheckoutYear=2014\n│   └── part-0.parquet\n├── CheckoutYear=2015\n│   └── part-0.parquet\n├── CheckoutYear=2016\n│   └── part-0.parquet\n├── CheckoutYear=2017\n│   └── part-0.parquet\n├── CheckoutYear=2018\n│   └── part-0.parquet\n├── CheckoutYear=2019\n│   └── part-0.parquet\n├── CheckoutYear=2020\n│   └── part-0.parquet\n├── CheckoutYear=2021\n│   └── part-0.parquet\n└── CheckoutYear=2022\n    └── part-0.parquet\n\n\n\n\n\nalso called multi-files or sometimes shards"
   },
   {
     "objectID": "slides.html#poll-partitioning",
@@ -263,28 +270,28 @@
     "href": "slides.html#gb-partitioned-parquet-files-arrow-dplyr",
     "title": "Intro to Arrow in R",
     "section": "4.5GB partitioned Parquet files + arrow + dplyr",
-    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 12.359   1.160   1.380 \n\n\n\n42 million rows – not too shabby!"
+    "text": "4.5GB partitioned Parquet files + arrow + dplyr\n\nseattle_parquet_part &lt;- \"./data/seattle-library-checkouts\"\n\nopen_dataset(seattle_parquet_part,\n             format = \"parquet\") |&gt;\n  filter(endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutYear) |&gt;\n  summarise(Checkouts = sum(Checkouts)) |&gt;\n  arrange(CheckoutYear) |&gt; \n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 12.805   1.315   1.767 \n\n\n\n42 million rows – not too shabby!"
   },
   {
     "objectID": "slides.html#partition-design",
     "href": "slides.html#partition-design",
     "title": "Intro to Arrow in R",
     "section": "Partition Design",
-    "text": "Partition Design\n\n\n\nPartitioning on variables commonly used in filter() often faster\nNumber of partitions also important (Arrow reads the metadata of each file)"
+    "text": "Partition Design\n\n\n\nPartitioning on variables commonly used in filter() often faster\nNumber of partitions also important (Arrow reads the metadata of each file)\n\n\n\nfs::dir_tree(\"data/seattle-library-checkouts/\")\n\ndata/seattle-library-checkouts/\n├── CheckoutYear=2005\n│   └── part-0.parquet\n├── CheckoutYear=2006\n│   └── part-0.parquet\n├── CheckoutYear=2007\n│   └── part-0.parquet\n├── CheckoutYear=2008\n│   └── part-0.parquet\n├── CheckoutYear=2009\n│   └── part-0.parquet\n├── CheckoutYear=2010\n│   └── part-0.parquet\n├── CheckoutYear=2011\n│   └── part-0.parquet\n├── CheckoutYear=2012\n│   └── part-0.parquet\n├── CheckoutYear=2013\n│   └── part-0.parquet\n├── CheckoutYear=2014\n│   └── part-0.parquet\n├── CheckoutYear=2015\n│   └── part-0.parquet\n├── CheckoutYear=2016\n│   └── part-0.parquet\n├── CheckoutYear=2017\n│   └── part-0.parquet\n├── CheckoutYear=2018\n│   └── part-0.parquet\n├── CheckoutYear=2019\n│   └── part-0.parquet\n├── CheckoutYear=2020\n│   └── part-0.parquet\n├── CheckoutYear=2021\n│   └── part-0.parquet\n└── CheckoutYear=2022\n    └── part-0.parquet"
   },
   {
     "objectID": "slides.html#performance-review-single-csv",
     "href": "slides.html#performance-review-single-csv",
     "title": "Intro to Arrow in R",
     "section": "Performance Review: Single CSV",
-    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 31.395   4.062  29.501"
+    "text": "Performance Review: Single CSV\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\n  sources = \"./data/seattle-library-checkouts.csv\", \n  format = \"csv\"\n) |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt;\n  system.time()\n\n   user  system elapsed \n 39.837   5.778  37.287"
   },
   {
     "objectID": "slides.html#performance-review-partitioned-parquet",
     "href": "slides.html#performance-review-partitioned-parquet",
     "title": "Intro to Arrow in R",
     "section": "Performance Review: Partitioned Parquet",
-    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  0.812   0.124   0.228"
+    "text": "Performance Review: Partitioned Parquet\nHow long does it take to calculate the number of books checked out in each month of 2021?\n\n\nopen_dataset(\"./data/seattle-library-checkouts\",\n             format = \"parquet\") |&gt; \n  filter(CheckoutYear == 2021, endsWith(MaterialType, \"BOOK\")) |&gt;\n  group_by(CheckoutMonth) |&gt;\n  summarize(TotalCheckouts = sum(Checkouts)) |&gt;\n  arrange(desc(CheckoutMonth)) |&gt;\n  collect() |&gt; \n  system.time()\n\n   user  system elapsed \n  0.895   0.127   0.280"
   },
   {
     "objectID": "slides.html#engineering-data-tips-for-improved-storage-performance",
@@ -320,26 +327,5 @@
     "title": "Intro to Arrow in R",
     "section": "Scaling Up with R and Arrow",
     "text": "Scaling Up with R and Arrow\n\n\n\n\nCurrently being written but preview available!\n\nhttps://arrowrbook.com"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Intro to Arrow in R",
-    "section": "",
-    "text": "Workshop Overview\nThis workshop will focus on using the arrow R package to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You’ll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.\nThis course is for you if you:\n\nwant to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow\nwant to learn about Parquet and other file formats that are powerful alternatives to CSV files\nwant to learn how to engineer your tabular data storage for more performant access and analysis with Apache Arrow\n\n\n\nWorkshop Prework\nDetailed instructions for software requirements and data sources are show below.\n\nPackages\nTo install the required core packages for the workshop, run the following:\n\ninstall.packages(c(\n  \"arrow\", \"dplyr\", \"stringr\", \"lubridate\", \"tictoc\"\n))\n\n\n\nSeattle Checkouts by Title Data\nThis is the data we will use in the workshop. It’s a good-sized, single CSV file—9GB on-disk in total, which can be downloaded from an AWS S3 bucket via https:\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv\",\n  destfile = \"./data/seattle-library-checkouts.csv\"\n)\n\n\n\nTiny Data Option\nIf you don’t have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with the “tiny” version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data—although note you may not see the same performance improvements that you would get when working with larger data.\n\noptions(timeout = 1800)\ndownload.file(\n  url = \"https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv\",\n  destfile = \"./data/seattle-library-checkouts-tiny.csv\"\n)\n\nIf you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software & packages installed and the data downloaded on to your laptop.\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
-  },
-  {
-    "objectID": "license-web.html",
-    "href": "license-web.html",
-    "title": "License",
-    "section": "",
-    "text": "This work is licensed under a Creative Commons Attribution 4.0 International License."
-  },
-  {
-    "objectID": "slides.html#introduction-to-arrow-in-r",
-    "href": "slides.html#introduction-to-arrow-in-r",
-    "title": "Intro to Arrow in R",
-    "section": "Introduction to Arrow in R",
-    "text": "Introduction to Arrow in R"
   }
 ]
