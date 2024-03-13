@@ -1,24 +1,6 @@
-project:
-  type: website
+project: 
   render:
-    - "*.qmd"
-
-website:
-  title: "Intro to Arrow in R"
-  navbar:
-    background: dark
-    logo: "images/logo.png"
-    right:
-      - icon: github
-        href: https://github.com/thisisnic/intro_to_arrow_workshop
-        text: GitHub
-
-    left:
-      - href: index.qmd
-        text: Home
-      - text: Slides
-        href: slides.qmd
-        target: "_blank"
+    - slides.qmd
 
 format:
   html:
