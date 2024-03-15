@@ -5,7 +5,7 @@ by Steph Hazlitt & Nic Crane
 
 ### Workshop Website
 
-This repository contains materials for the **Intro to Arrow** workshop. See https://remarkable-meerkat-01099f.netlify.app/ for rendered workshop materials.
+This repository contains materials for the **Intro to Arrow** workshop.
 
 ### Workshop Overview
 
