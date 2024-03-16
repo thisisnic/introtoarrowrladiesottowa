@@ -1,70 +1,71 @@
 ---
-title: Intro to Arrow in R
-subtitle: A short workshop
-editor: source
+title: Intro to Infectious Disease Modelling
 ---
 
-![](images/logo.png){width="30%" fig-align="center"}
+### Lecture Overview
 
-### Workshop Overview
+This lecture introduces participants to the theory and philosophy behind
+modelling infectious diseases, focussing on compartmental models, and especially
+the SIR model and its extensions (SEIR, SEIRV), and developing an understanding
+of the derivation and interpretation of the basic reproduction number, $R0$.
 
-This workshop will focus on using the arrow R package to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You'll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.
+## Prerequisites
 
-*This course is for you if you:*
+Participants should have a basic understanding of calculus and differential
+equations, as well as some familiarity with the R programming language.
 
--   want to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow
--   want to learn about Parquet and other file formats that are powerful alternatives to CSV files
--   want to learn how to engineer your tabular data storage for more performant access and analysis with Apache Arrow
+## Course Materials
 
-### Workshop Prework
+- Lecture slides
+- Code templates for exercises (R)
+- Recommended readings and resources list
 
-Detailed instructions for software requirements and data sources are show below.
+## Learning Objectives
 
-#### Packages
+- Understand the basic principles of infectious disease modelling.
+- Implement and analyse compartmental models (SIR, SEIR, and SEIRV models).
+- Interpret model parameters and outputs.
+- Derive/calculate and interpret the basic reproduction number (R0).
+- Assess model assumptions and limitations.
 
-To install the required core packages for the workshop, run the following:
+## Course Schedule (subject to change)
 
-```{r}
-#| label: install-core-packages
-#| message: false
-#| eval: false
-install.packages(c(
-  "arrow", "dplyr", "stringr", "lubridate", "tictoc"
-))
-```
+- 9:00 AM - 10:30 AM: Overview of Infectious Disease Modelling (1 hour 30 mins)
+  - Introduction to mathematical modelling in epidemiology
+    - The role of models in public health
+    - Types of models: deterministic vs. stochastic
+    - Basics of compartmental modelling (SIR models)
+  - Understanding model parameters: rates, proportions, and probabilities
 
+- 10:30 AM - 10:45 AM: Short Break (15 mins)
 
-#### Seattle Checkouts by Title Data
+- 10:45 AM - 12:15 PM: Extending compartmental models (1 hour 30 mins)
+    - The SEIR Model: Adding the Exposed (E) compartment
+- The Basic Reproduction Number, $R0$
+  - Definition and significance of $R0$
+  - Methods for calculating $R0$
+  - Understanding $R0$ in the context of control measures
 
-This is the data we will use in the workshop. It's a good-sized, single CSV file---*9GB* on-disk in total, which can be downloaded from an AWS S3 bucket via https:
+- 12:15 AM - 13:15 PM: Lunch Break (1 hour)
 
-```{r}
-#| label: get-seattle-csv
-#| eval: false
-options(timeout = 1800)
-download.file(
-  url = "https://r4ds.s3.us-west-2.amazonaws.com/seattle-library-checkouts.csv",
-  destfile = "./data/seattle-library-checkouts.csv"
-)
-```
+- 13:15 PM - 14:45 PM: Analyzing Model Outputs and Dynamics (1 hour 30 mins)
 
-#### Tiny Data Option
+  - Interpreting the epidemic curve
+  - Understanding equilibrium and threshold conditions
+  - Sensitivity analysis: How changes in parameters affect the model outputs
 
-If you don't have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with the "tiny" version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data---although note you may not see the same performance improvements that you would get when working with larger data.
+- 14:45 PM - 15:00 PM: Short Break (15 mins)
 
-```{r}
-#| label: download-tiny-seattle
-#| message: false
-#| eval: false
-options(timeout = 1800)
-download.file(
-  url = "https://github.com/posit-conf-2023/arrow/releases/download/v0.1.0/seattle-library-checkouts-tiny.csv",
-  destfile = "./data/seattle-library-checkouts-tiny.csv"
-)
-```
+- 15:00 PM - 15:30 PM: Wrap-Up and Q&A (30 mins)
 
-If you want to participate in the coding exercise or follow along, please try your very best to begin the workshop ready with the required software & packages installed and the data downloaded on to your laptop.
+  - Summary of key takeaways
+  - Discussion of model limitations and assumptions
+  - Open Q&A session
 
-------------------------------------------------------------------------
+- 15:30 PM - 17:00 - Exercises (1 hour 30 mins)
 
-![](https://i.creativecommons.org/l/by/4.0/88x31.png) This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+  - Implementing compartmental models in R
+  - Calculating R0 for various models
+
+![](https://i.creativecommons.org/l/by/4.0/88x31.png) This work is licensed
+under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
