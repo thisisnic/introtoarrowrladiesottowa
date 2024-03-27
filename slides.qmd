@@ -307,13 +307,32 @@ seattle_csv |> glimpse()
 
 # Part 3 - Data Manipulation with Arrow
 
-
+::: {.notes}
+- <Up to here was about 28 mins in first practice run (no time for questions)>
+- Question - how many people here have used dbplyr to connect to a database in R?
+:::
 
 ## Arrow dplyr backend
 
 ![](images/dplyr-backend.png)
 
-## Querying the data
+::: {.notes}
+LIVE CODING
+  - Data contains book, ebooks, things which aren't book
+  - Do *not* call collect() after first query - talk about lazy eval and show the query
+    - endsWith to ends_with; this is actually an arrow C++ lib func
+  - Don't want to pull all into memory as it's a lot of data; preview using head
+  - Now look at the outputs of that
+  - Next: How many books and ebooks were checked out each year?
+  - Don't need to call head() to preview as the data returned is just a row for each year 
+  - Run again with a timer set, then walk through results
+  - Walk through the data, drop in 2020 - pandemic?
+  - Not bad, it can be faster and this is what we'll talk about in part 3
+RECAP
+  - Any questions?
+:::
+
+## Querying the data - new column: is this a book?
 
 ```{r}
 #| label: query
@@ -321,6 +340,8 @@ seattle_csv |>
   mutate(IsBook = endsWith(MaterialType, "BOOK")) |>
   select(MaterialType, IsBook)
 ```
+
+
 
 ## Preview the query
 
@@ -334,7 +355,7 @@ seattle_csv |>
   collect()
 ```
 
-## Data manipulation
+## How many books were checked out each year?
 
 ```{r}
 #| label: seattle-data-manip
