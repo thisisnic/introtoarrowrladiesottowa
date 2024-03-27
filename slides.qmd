@@ -164,6 +164,39 @@ Arrow's Columnar Format is Fast
 
 ![](images/seattle-checkouts.png){.absolute top="0" left="300"}
 
+::: {.notes}
+- TODO: add link to website
+- TODO: find out for below how much of the file Arrow actually scans
+- TODO: add an nrow to this section
+- LIVE CODING
+  - path to the data depending on where you've downloaded it
+  - what is fs?
+  - impact of data size on performance
+  - walk through subcomponents of the output when print the `seattle_csv` object
+    - explicitly mention the term "schema"
+    - string and character are direct equivalents
+    - why we have e.g. 64-bit integers
+    - arrow automatically handles the conversion between R and Arrow data types
+  - these types have been guessed from first 1MB of rows
+  - can anyone spot something odd here?
+  - what is an ISBN; what is the null type?
+  - pulling out the schema
+  - updating the schema
+  - using the e.g. `string()` functions to create different data types and where in the docs?
+  - show *both* schema updating and `col_types`
+  - checking out the new schema
+  - how often is this necessary? Often not. Good practice. Only important with CSVs not Parquet.
+  - run `glimpse()` but remember it'll take a moment
+    - TODO: find something to talk about here
+    - 42 millions rows
+    - UsageClass column data
+    - ISBN column data
+    - PublicationYear + why it's a string
+- Recap this section!
+- Questions?
+
+:::
+
 ## How big is the dataset?
 
 ```{r}
