@@ -6,7 +6,7 @@ format:
   revealjs: 
     theme: default
     slide-number: true
-    footer: "https://thisisnic.github.io/introtoarrowworkshop/"
+    footer: "https://github.com/thisisnic/introtoarrowworkshop"
 engine: knitr
 ---
 
@@ -31,8 +31,19 @@ Today we're going to cover:
 
 ## Workshop format
 
+-   Slides available at https://tinyurl.com/introtoarrow 
 -   Follow-along coding
--   Gaps to ask question
+-   Gaps to ask questions
+
+::: {.notes}
+- feel free to ask questions as we go along!
+:::
+
+## Getting set up
+
+![](images/newproj.png)
+
+Repository URL: https://github.com/thisisnic/introtoarrowworkshop 
 
 ## Dataset to follow along with
 
@@ -46,7 +57,21 @@ download.file(
 )
 ```
 
+::: {.notes}
+- dataset from R For Data Science
+- run this from within the project you've got set up
+- first line of code increase the download timeout to 30 mins - essential when downloading larger datasets
+- if you don't have the data yet, download it now - next section talking about arrow
+:::
+
+## Backup option - Posit Cloud & Tiny Dataset
+
 # Part 1 - Arrow 
+
+::: {.notes}
+- any questions before we get started?
+- this section will cover a bit of background info about arrow
+:::
 
 ## What is Apache Arrow?
 
@@ -64,6 +89,10 @@ download.file(
 <https://arrow.apache.org/overview/>
 :::
 
+::: {.notes}
+- TODO: add main points want to hit here
+:::
+
 ## Apache Arrow Specification
 
 In-memory columnar format: a standardized, language-agnostic specification for representing structured, table-like data sets in-memory.
@@ -71,6 +100,11 @@ In-memory columnar format: a standardized, language-agnostic specification for r
 <br>
 
 ![](images/arrow-rectangle.png){.absolute left="200"}
+
+::: {.notes}
+- TODO: can we highlight "columnar", "standardized", "language-agnostic", and "table-like datasets" in different colours?
+- brief overview of these points but coming back to later
+:::
 
 ## A Multi-Language Toolbox
 
@@ -80,15 +114,24 @@ In-memory columnar format: a standardized, language-agnostic specification for r
 
 ![](images/data-interchange-with-arrow.png)
 
+::: {.notes}
+- standardisation means multiple things speaking arrow prevents copying back and forth
+:::
+
 ## Accelerated In-Memory Processing
 
 Arrow's Columnar Format is Fast
 
 ![](images/columnar-fast.png){.absolute top="120" left="200" height="600"}
 
-::: notes
-The contiguous columnar layout enables vectorization using the latest SIMD (Single Instruction, Multiple Data) operations included in modern processors.
+::: {.notes}
+- intro the toy dataset
+- memory buffers are a 1-dimension structure, not like a 2D table/data.frame
+- walk through this in the 2 diagrams
+- analytics workflows typically have filtering, grouping by columns etc; give examples
+- faster to scan adjacent areas than picking through it all + taking advantage of vectorization available on modern processes speeds up faster
 :::
+
 
 ## arrow 📦
 
@@ -96,11 +139,26 @@ The contiguous columnar layout enables vectorization using the latest SIMD (Sing
 
 ![](images/arrow-r-pkg.png){.absolute top="0" left="300" width="700" height="900"}
 
+::: {.notes}
+- TODO: highlight sections with overlay colour (diff colours)
+:::
+
 ## arrow 📦
 
 ![](images/arrow-read-write-updated.png)
 
+::: {.notes}
+- different types of objects
+- different file formats
+- different storage locations
+:::
+
 # Part 2 - Data Manipulation with Arrow
+
+::: {.notes}
+- any questions so far?
+- maybe a poll - who's worked with dplyr/arrow/parquet before?
+:::
 
 ## Seattle<br>Checkouts<br>Big CSV
 
