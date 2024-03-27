@@ -6,12 +6,20 @@ format:
   revealjs: 
     theme: default
     slide-number: true
+    footer: "https://thisisnic.github.io/introtoarrowworkshop/"
 engine: knitr
 ---
 
 ## Introduction to Arrow in R
 
 ![](images/logo.png){fig-align="center" width="500" height="500"}
+
+## Intros
+
+* Stephanie Hazlitt
+* Nic Crane
+
+Arrow contributors!
 
 ## Welcome!
 
