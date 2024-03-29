@@ -154,7 +154,7 @@ Arrow's Columnar Format is Fast
 -   maybe a poll - who's worked with dplyr/arrow/parquet before?
 :::
 
-## Seattle<br>Checkouts<br>Big CSV
+## Seattle Checkouts - Big CSV
 
 ![](images/seattle-checkouts.png){.absolute top="0" left="300"}
 
