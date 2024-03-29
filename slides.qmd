@@ -16,8 +16,8 @@ engine: knitr
 
 ## Intros
 
-* Stephanie Hazlitt
-* Nic Crane
+-   Stephanie Hazlitt
+-   Nic Crane
 
 Arrow contributors!
 
@@ -25,25 +25,25 @@ Arrow contributors!
 
 Today we're going to cover:
 
-- Working with larger-than-memory datasets with Arrow
-- How to get the best performance out in your analyses   
-- Where to find more information   
+-   Working with larger-than-memory datasets with Arrow
+-   How to get the best performance out in your analyses\
+-   Where to find more information
 
 ## Workshop format
 
--   Slides available at https://tinyurl.com/introtoarrow 
+-   Slides available at https://tinyurl.com/introtoarrow
 -   Follow-along coding
 -   Gaps to ask questions
 
-::: {.notes}
-- feel free to ask questions as we go along!
+::: notes
+-   feel free to ask questions as we go along!
 :::
 
 ## Getting set up
 
 ![](images/newproj.png)
 
-Repository URL: https://github.com/thisisnic/introtoarrowworkshop 
+Repository URL: https://github.com/thisisnic/introtoarrowworkshop
 
 ## Dataset to follow along with
 
@@ -57,20 +57,20 @@ download.file(
 )
 ```
 
-::: {.notes}
-- dataset from R For Data Science
-- run this from within the project you've got set up
-- first line of code increase the download timeout to 30 mins - essential when downloading larger datasets
-- if you don't have the data yet, download it now - next section talking about arrow
+::: notes
+-   dataset from R For Data Science
+-   run this from within the project you've got set up
+-   first line of code increase the download timeout to 30 mins - essential when downloading larger datasets
+-   if you don't have the data yet, download it now - next section talking about arrow
 :::
 
 ## Backup option - Posit Cloud & Tiny Dataset
 
-# Part 1 - Arrow 
+# Part 1 - Arrow
 
-::: {.notes}
-- any questions before we get started?
-- this section will cover a bit of background info about arrow
+::: notes
+-   any questions before we get started?
+-   this section will cover a bit of background info about arrow
 :::
 
 ## What is Apache Arrow?
@@ -89,21 +89,20 @@ download.file(
 <https://arrow.apache.org/overview/>
 :::
 
-::: {.notes}
-- TODO: add main points want to hit here
+::: notes
+-   TODO: add main points want to hit here
 :::
 
 ## Apache Arrow Specification
 
-In-memory columnar format: a standardized, language-agnostic specification for representing structured, table-like data sets in-memory.
+In-memory [columnar format]{style="background-color: #F3D1FF;"}: a [standardized, language-agnostic specification]{style="background-color: #FFDCB7;"} for representing structured, [table-like datasets]{style="background-color: #DCFFC9;"} in-memory.
 
 <br>
 
 ![](images/arrow-rectangle.png){.absolute left="200"}
 
-::: {.notes}
-- TODO: can we highlight "columnar", "standardized", "language-agnostic", and "table-like datasets" in different colours?
-- brief overview of these points but coming back to later
+::: notes
+-   brief overview of these points but coming back to later
 :::
 
 ## A Multi-Language Toolbox
@@ -114,8 +113,8 @@ In-memory columnar format: a standardized, language-agnostic specification for r
 
 ![](images/data-interchange-with-arrow.png)
 
-::: {.notes}
-- standardisation means multiple things speaking arrow prevents copying back and forth
+::: notes
+-   standardisation means multiple things speaking arrow prevents copying back and forth
 :::
 
 ## Accelerated In-Memory Processing
@@ -124,77 +123,70 @@ Arrow's Columnar Format is Fast
 
 ![](images/columnar-fast.png){.absolute top="120" left="200" height="600"}
 
-::: {.notes}
-- intro the toy dataset
-- memory buffers are a 1-dimension structure, not like a 2D table/data.frame
-- walk through this in the 2 diagrams
-- analytics workflows typically have filtering, grouping by columns etc; give examples
-- faster to scan adjacent areas than picking through it all + taking advantage of vectorization available on modern processes speeds up faster
+::: notes
+-   intro the toy dataset
+-   memory buffers are a 1-dimension structure, not like a 2D table/data.frame
+-   walk through this in the 2 diagrams
+-   analytics workflows typically have filtering, grouping by columns etc; give examples
+-   faster to scan adjacent areas than picking through it all + taking advantage of vectorization available on modern processes speeds up faster
 :::
-
 
 ## arrow 📦
 
 <br>
 
-![](images/arrow-r-pkg.png){.absolute top="0" left="300" width="700" height="900"}
-
-::: {.notes}
-- TODO: highlight sections with overlay colour (diff colours)
-:::
+![](images/arrow-r-pkg-highlights.png){.absolute top="0" left="300" width="700" height="900"}
 
 ## arrow 📦
 
 ![](images/arrow-read-write-updated.png)
 
-::: {.notes}
-- different types of objects
-- different file formats
-- different storage locations
+::: notes
+-   different types of objects
+-   different file formats
+-   different storage locations
 :::
 
 # Part 2 - Working with Arrow Datasets
 
-::: {.notes}
-- any questions so far?
-- maybe a poll - who's worked with dplyr/arrow/parquet before?
+::: notes
+-   any questions so far?
+-   maybe a poll - who's worked with dplyr/arrow/parquet before?
 :::
 
 ## Seattle<br>Checkouts<br>Big CSV
 
 ![](images/seattle-checkouts.png){.absolute top="0" left="300"}
 
-::: {.notes}
-- TODO: add link to website
-- TODO: find out for below how much of the file Arrow actually scans
-- TODO: add an nrow to this section
-- LIVE CODING
-  - path to the data depending on where you've downloaded it
-  - what is fs?
-  - impact of data size on performance
-  - walk through subcomponents of the output when print the `seattle_csv` object
-    - explicitly mention the term "schema"
-    - string and character are direct equivalents
-    - why we have e.g. 64-bit integers
-    - arrow automatically handles the conversion between R and Arrow data types
-  - these types have been guessed from first 1MB of rows
-  - can anyone spot something odd here?
-  - what is an ISBN; what is the null type?
-  - pulling out the schema
-  - updating the schema
-  - using the e.g. `string()` functions to create different data types and where in the docs?
-  - show *both* schema updating and `col_types`
-  - checking out the new schema
-  - how often is this necessary? Often not. Good practice. Only important with CSVs not Parquet.
-  - run `glimpse()` but remember it'll take a moment
-    - TODO: find something to talk about here
-    - 42 millions rows
-    - UsageClass column data
-    - ISBN column data
-    - PublicationYear + why it's a string
-- Recap this section!
-- Questions?
+https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data
 
+::: notes
+-   LIVE CODING
+    -   path to the data depending on where you've downloaded it
+    -   what is fs?
+    -   impact of data size on performance
+    -   walk through subcomponents of the output when print the `seattle_csv` object
+        -   explicitly mention the term "schema"
+        -   string and character are direct equivalents
+        -   why we have e.g. 64-bit integers
+        -   arrow automatically handles the conversion between R and Arrow data types
+    -   these types have been guessed from first 1MB of rows (can't say how many as varies with ncol)
+    -   can anyone spot something odd here?
+    -   what is an ISBN; what is the null type?
+    -   pulling out the schema
+    -   updating the schema
+    -   using the e.g. `string()` functions to create different data types and where in the docs?
+    -   show *both* schema updating and `col_types`
+    -   checking out the new schema
+    -   how often is this necessary? Often not. Good practice. Only important with CSVs not Parquet.
+    -   run `glimpse()` but remember it'll take a moment
+        -   TODO: find something to talk about here or don't use glimpse!
+        -   42 millions rows
+        -   UsageClass column data
+        -   ISBN column data
+        -   PublicationYear + why it's a string
+-   Recap this section!
+-   Questions?
 :::
 
 ## How big is the dataset?
@@ -205,11 +197,15 @@ Arrow's Columnar Format is Fast
 #| output: false
 library(arrow)
 library(dplyr)
+library(fs)
 ```
 
 ```{r}
 #| label: check-file-size
-fs::file_size("./data/seattle-library-checkouts.csv")
+library(arrow)
+library(dplyr)
+library(fs)
+file_size("./data/seattle-library-checkouts.csv")
 ```
 
 ## Opening in Arrow
@@ -220,6 +216,13 @@ seattle_csv <- open_dataset(
   sources = "./data/seattle-library-checkouts.csv", 
   format = "csv"
 )
+```
+
+## How many rows of data?
+
+```{r}
+#| label: nrow-dataset
+nrow(seattle_csv)
 ```
 
 ## Extract schema
@@ -245,7 +248,7 @@ Arrow has a rich data type system, including direct analogs of many R data types
 
 <br>
 
-Arrow scans 👀 a few thousand rows of the file(s) to impute or "guess" the data types
+Arrow scans 👀 1MB of the file(s) to impute or "guess" the data types
 
 ::: {style="font-size: 80%; margin-top: 200px;"}
 📚 arrow vs readr blog post: <https://thisisnic.github.io/2022/11/21/type-inference-in-readr-and-arrow/>
@@ -307,29 +310,19 @@ seattle_csv |> glimpse()
 
 # Part 3 - Data Manipulation with Arrow
 
-::: {.notes}
-- <Up to here was about 28 mins in first practice run (no time for questions)>
-- Question - how many people here have used dbplyr to connect to a database in R?
+::: notes
+-   \<Up to here was about 28 mins in first practice run (no time for questions)\>
+-   Question - how many people here have used dbplyr to connect to a database in R?
 :::
 
 ## Arrow dplyr backend
 
 ![](images/dplyr-backend.png)
 
-::: {.notes}
-LIVE CODING
-  - Data contains book, ebooks, things which aren't book
-  - Do *not* call collect() after first query - talk about lazy eval and show the query
-    - endsWith to ends_with; this is actually an arrow C++ lib func
-  - Don't want to pull all into memory as it's a lot of data; preview using head
-  - Now look at the outputs of that
-  - Next: How many books and ebooks were checked out each year?
-  - Don't need to call head() to preview as the data returned is just a row for each year 
-  - Run again with a timer set, then walk through results
-  - Walk through the data, drop in 2020 - pandemic?
-  - Not bad, it can be faster and this is what we'll talk about in part 3
-RECAP
-  - Any questions?
+::: notes
+LIVE CODING - Data contains book, ebooks, things which aren't book - Do *not* call collect() after first query - talk about lazy eval and show the query - endsWith to ends_with; this is actually an arrow C++ lib func - Don't want to pull all into memory as it's a lot of data; preview using head - Now look at the outputs of that - Next: How many books and ebooks were checked out each year?
+- Don't need to call head() to preview as the data returned is just a row for each year - Run again with a timer set, then walk through results - Walk through the data, drop in 2020 - pandemic?
+- Not bad, it can be faster and this is what we'll talk about in part 3 RECAP - Any questions?
 :::
 
 ## Querying the data - new column: is this a book?
@@ -340,8 +333,6 @@ seattle_csv |>
   mutate(IsBook = endsWith(MaterialType, "BOOK")) |>
   select(MaterialType, IsBook)
 ```
-
-
 
 ## Preview the query
 
@@ -367,19 +358,7 @@ seattle_csv |>
   collect()
 ```
 
-## 9GB CSV file + arrow + dplyr
-
-```{r}
-#| label: seattle-dplyr
-seattle_csv |>
-  filter(endsWith(MaterialType, "BOOK")) |>
-  group_by(CheckoutYear) |>
-  summarise(Checkouts = sum(Checkouts)) |>
-  arrange(CheckoutYear) |> 
-  collect()
-```
-
-## 9GB CSV file + arrow + dplyr
+## How long did it take?
 
 ```{r}
 #| label: seattle-dplyr-timed
@@ -407,14 +386,17 @@ seattle_csv |>
 
 ## Parquet
 
--   usually smaller than equivalent CSV file
--   rich type system & stores the data type along with the data
+-   compression and encoding - usually much smaller than equivalent CSV file
+-   rich type system & stores the schema along with the data
 -   "column-oriented" == better performance over CSV's row-by-row
 -   "row-chunked" == work on different parts of the file at the same time or skip some chunks all together
 
 ::: notes
+-   CSVs widely used common format
+-   Parquet is a popular format for bigger data
+-   optimised for analytics workflows
 -   efficient encodings to keep file size down, and supports file compression, less data to move from disk to memory
--   CSV has no info about data types, inferred by each parser
+-   CSV has no info about data types, inferred by each parser - Parquet stores the type
 :::
 
 ## Parquet Files: "row-chunked"
@@ -425,55 +407,47 @@ seattle_csv |>
 
 ![](images/parquet-columnar.png)
 
+::: notes
+LIVE CODING -
+
+RECAP - Any questions?
+:::
+
 ## Writing to Parquet
 
 ```{r}
 #| label: seattle-write-parquet-setup
 #| output: false
 #| echo: false
-seattle_parquet <- "./data/seattle-library-checkouts-parquet"
+seattle_parquet_dir <- "./data/seattle-library-checkouts-parquet"
 ```
 
 ```{r}
 #| label: seattle-write-parquet-single
 #| eval: false
-seattle_parquet <- "./data/seattle-library-checkouts-parquet"
+seattle_parquet_dir <- "./data/seattle-library-checkouts-parquet"
 
 seattle_csv |>
-  write_dataset(path = seattle_parquet,
-                format = "parquet")
+  write_dataset(path = seattle_parquet_dir, format = "parquet")
 ```
 
 ## Storage: Parquet vs CSV
 
 ```{r}
 #| label: seattle-single-parquet-size
-file <- list.files(seattle_parquet)
-file.size(file.path(seattle_parquet, file)) / 10**9
+file <- dir_ls(seattle_parquet_dir, recurse = TRUE)
+file_size(file)
 ```
 
 <br>
 
 Parquet about half the size of the CSV file on-disk 💾
 
-## File Storage:<br>Partitioning
+## File Storage: Partitioning
 
-<br>
-
-::: columns
-::: {.column width="50%"}
 Dividing data into smaller pieces, making it more easily accessible and manageable
-:::
 
-::: {.column width="50%"}
-
-```{r}
-#| label: show_dir_tree_1
-fs::dir_tree("data/seattle-library-checkouts/")
-```
-
-:::
-:::
+![](images/partitioning.png){fig-align="right"}
 
 ::: notes
 also called multi-files or sometimes shards
@@ -486,22 +460,6 @@ Have you partitioned your data or used partitioned data before today?
 -   1️⃣ Yes
 -   2️⃣ No
 -   3️⃣ Not sure, the data engineers sort that out!
-
-## Art & Science of Partitioning
-
-<br>
-
--   avoid files \< 20MB and \> 2GB
--   avoid \> 10,000 files (🤯)
--   partition on variables used in `filter()`
-
-::: notes
--   guidelines not rules, results vary
--   experiment
--   arrow suggests avoid files smaller than 20MB and larger than 2GB
--   avoid partitions that produce more than 10,000 files
--   partition by variables that you filter by, allows arrow to only read relevant files
-:::
 
 ## Rewriting the Data Again
 
@@ -524,7 +482,7 @@ seattle_parquet_part <- "./data/seattle-library-checkouts"
 
 sizes <- tibble(
   files = list.files(seattle_parquet_part, recursive = TRUE),
-  size_GB = file.size(file.path(seattle_parquet_part, files)) / 10**9
+  size_GB = round(file.size(file.path(seattle_parquet_part, files)) / 10**9, 3)
 )
 
 sizes
@@ -536,34 +494,35 @@ sizes
 #| label: seattle-partitioned-dplyr-timed
 seattle_parquet_part <- "./data/seattle-library-checkouts"
 
-open_dataset(seattle_parquet_part,
-             format = "parquet") |>
-  filter(endsWith(MaterialType, "BOOK")) |>
-  group_by(CheckoutYear) |>
-  summarise(Checkouts = sum(Checkouts)) |>
-  arrange(CheckoutYear) |> 
-  collect() |>
-  system.time()
+system.time(
+  books_by_year <- open_dataset(seattle_parquet_part,
+               format = "parquet") |>
+    filter(endsWith(MaterialType, "BOOK")) |>
+    group_by(CheckoutYear) |>
+    summarise(Checkouts = sum(Checkouts)) |>
+    arrange(CheckoutYear) |> 
+    collect()
+)
 ```
 
 <br>
 
 42 million rows -- not too shabby!
 
-## Partition Design
+## Art & Science of Partitioning
 
-::: columns
-::: {.column width="50%"}
--   Partitioning on variables commonly used in `filter()` often faster
--   Number of partitions also important (Arrow reads the metadata of each file)
-:::
+<br>
 
-::: {.column width="50%"}
-```{r}
-#| label: show_dir_tree
-fs::dir_tree("data/seattle-library-checkouts/")
-```
-:::
+-   avoid files \< 20MB and \> 2GB
+-   avoid \> 10,000 files (🤯)
+-   partition on variables used in `filter()`
+
+::: notes
+-   guidelines not rules, results vary
+-   experiment
+-   arrow suggests avoid files smaller than 20MB and larger than 2GB
+-   avoid partitions that produce more than 10,000 files (Arrow reads the metadata of each file)
+-   partition by variables that you filter by, allows arrow to only read relevant files
 :::
 
 ## Performance Review: Single CSV
@@ -600,7 +559,7 @@ open_dataset("./data/seattle-library-checkouts",
   group_by(CheckoutMonth) |>
   summarize(TotalCheckouts = sum(Checkouts)) |>
   arrange(desc(CheckoutMonth)) |>
-  collect() |> 
+  collect() |>
   system.time()
 ```
 
@@ -608,15 +567,15 @@ open_dataset("./data/seattle-library-checkouts",
 
 <br>
 
--   consider "column-oriented" file formats like Parquet
+-   use Parquet over CSV if possible
 -   consider partitioning, experiment to get an appropriate partition design 🗂️
 -   watch your schemas 👀
 
 # Part 5 - More Resources
 
-## Getting help and more resources
+## Arrow docs
 
-<!-- Add in some links here -->
+![](images/docs.png)
 
 ## R for Data Science (2e)
 
@@ -651,4 +610,3 @@ Currently being written - preview available online soon!
 <https://arrowrbook.com>
 :::
 :::
-
