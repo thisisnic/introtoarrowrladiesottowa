@@ -163,7 +163,6 @@ https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data
 ::: notes
 -   LIVE CODING
     -   path to the data depending on where you've downloaded it
-    -   what is fs?
     -   impact of data size on performance
     -   walk through subcomponents of the output when print the `seattle_csv` object
         -   explicitly mention the term "schema"
@@ -197,15 +196,13 @@ https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data
 #| output: false
 library(arrow)
 library(dplyr)
-library(fs)
 ```
 
 ```{r}
 #| label: check-file-size
 library(arrow)
 library(dplyr)
-library(fs)
-file_size("./data/seattle-library-checkouts.csv")
+file.size("./data/seattle-library-checkouts.csv") / 10 **9
 ```
 
 ## Opening in Arrow
@@ -435,8 +432,8 @@ seattle_csv |>
 
 ```{r}
 #| label: seattle-single-parquet-size
-file <- dir_ls(seattle_parquet_dir, recurse = TRUE)
-file_size(file)
+file <- list.files(seattle_parquet_dir, recursive = TRUE, full.names = TRUE)
+file.size(file) / 10**9
 ```
 
 <br>
