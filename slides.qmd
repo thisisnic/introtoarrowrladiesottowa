@@ -273,27 +273,6 @@ International Standard Book Number (ISBN) is a 13-digit number that uniquely ide
 Data Dictionaries, metadata in data catalogues should provide this info.
 :::
 
-<!-- ## Let's Control the Schema -->
-
-<!-- <br> -->
-
-<!-- Creating a schema manually: -->
-
-<!-- ```{r} -->
-<!-- #| label: seattle-schema-write -->
-<!-- #| eval: false -->
-<!-- schema( -->
-<!--   UsageClass = utf8(), -->
-<!--   CheckoutType = utf8(), -->
-<!--   MaterialType = utf8(), -->
-<!--   ... -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- <br> -->
-
-<!-- This will take a lot of typing with 12 columns 😢 -->
-
 ## Let's Control the Schema
 
 ```{r}
@@ -306,13 +285,6 @@ seattle_csv <- open_dataset(
 
 schema(seattle_csv)
 ```
-
-<!-- ## Previewing the data -->
-
-<!-- ```{r} -->
-<!-- #| label: glimpse -->
-<!-- seattle_csv |> glimpse() -->
-<!-- ``` -->
 
 # Part 3 - Data Manipulation with Arrow
 
