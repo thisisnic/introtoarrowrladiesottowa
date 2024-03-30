@@ -26,9 +26,7 @@ Detailed instructions for software requirements and data sources are shown below
 To install the required core packages for the workshop, run the following:
 
 ```{r}
-install.packages(c(
-  "arrow", "dplyr", "stringr", "lubridate", "tictoc"
-))
+install.packages(c("arrow", "dplyr"))
 ```
 #### Seattle Checkouts by Title Data
 
