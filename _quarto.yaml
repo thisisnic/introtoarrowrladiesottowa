@@ -1,6 +1,6 @@
 project: 
   render:
-    - slides.qmd
+    - index.qmd
   output-dir: docs
 
 format:
