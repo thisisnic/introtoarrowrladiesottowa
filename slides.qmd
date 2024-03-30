@@ -13,7 +13,7 @@ editor: source
 
 ## Introduction to Arrow in R
 
-![](images/logo.png){fig-align="center" width="500" height="500"}
+![](images/logo.png){fig-align="center" width="500" height="600"}
 
 ## Introductions
 
