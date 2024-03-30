@@ -6,34 +6,39 @@ format:
   revealjs: 
     theme: default
     slide-number: true
-    footer: "https://github.com/thisisnic/introtoarrowworkshop"
+    footer: "[🔗 https://github.com/thisisnic/introtoarrowworkshop](https://github.com/thisisnic/introtoarrowworkshop)"
 engine: knitr
+editor: source
 ---
 
 ## Introduction to Arrow in R
 
 ![](images/logo.png){fig-align="center" width="500" height="500"}
 
-## Intros
+## Introductions
 
 -   Stephanie Hazlitt
 -   Nic Crane
 
 Arrow contributors!
 
-## Welcome!
+::: notes
+Have participants introduce themselves in the chat
+:::
+
+## Welcome
 
 Today we're going to cover:
 
 -   Working with larger-than-memory datasets with Arrow
--   How to get the best performance out in your analyses\
+-   How to get the best performance with your tabular data
 -   Where to find more information
 
 ## Workshop format
 
--   Slides available at https://tinyurl.com/introtoarrow
+-   Slides available at <https://tinyurl.com/introtoarrow>
 -   Follow-along coding
--   Gaps to ask questions
+-   Time to ask questions
 
 ::: notes
 -   feel free to ask questions as we go along!
@@ -43,7 +48,7 @@ Today we're going to cover:
 
 ![](images/newproj.png)
 
-Repository URL: https://github.com/thisisnic/introtoarrowworkshop
+Repository URL: <https://github.com/thisisnic/introtoarrowworkshop>
 
 ## Dataset to follow along with
 
@@ -70,7 +75,7 @@ download.file(
 
 ::: notes
 -   any questions before we get started?
--   this section will cover a bit of background info about arrow
+-   this section will cover a bit of background info about Apache Arrow
 :::
 
 ## What is Apache Arrow?
@@ -114,7 +119,7 @@ In-memory [columnar format]{style="background-color: #F3D1FF;"}: a [standardized
 ![](images/data-interchange-with-arrow.png)
 
 ::: notes
--   standardisation means multiple things speaking arrow prevents copying back and forth
+-   standardisation means multiple things speaking Arrow prevents copying back and forth
 :::
 
 ## Accelerated In-Memory Processing
@@ -127,7 +132,7 @@ Arrow's Columnar Format is Fast
 -   intro the toy dataset
 -   memory buffers are a 1-dimension structure, not like a 2D table/data.frame
 -   walk through this in the 2 diagrams
--   analytics workflows typically have filtering, grouping by columns etc; give examples
+-   analytic workflows typically have filtering, grouping by columns etc; give examples
 -   faster to scan adjacent areas than picking through it all + taking advantage of vectorization available on modern processes speeds up faster
 :::
 
@@ -156,9 +161,11 @@ Arrow's Columnar Format is Fast
 
 ## Seattle Checkouts - Big CSV
 
-![](images/seattle-checkouts.png){.absolute top="0" left="300"}
+![](images/seattle-checkouts.png){.absolute top="120" left="200" height="550"}
 
-https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data
+::: {style="font-size: 70%;"}
+<https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data>
+:::
 
 ::: notes
 -   LIVE CODING
@@ -258,7 +265,7 @@ Arrow scans 👀 1MB of the file(s) to impute or "guess" the data types
 schema(seattle_csv)
 ```
 
-![](images/data-dict.png){.absolute top="300" left="330" width="700"}
+![](images/data-dict.png){.absolute top="200" left="330" width="700"}
 
 ::: notes
 International Standard Book Number (ISBN) is a 13-digit number that uniquely identifies books and book-like products published internationally.
@@ -266,26 +273,26 @@ International Standard Book Number (ISBN) is a 13-digit number that uniquely ide
 Data Dictionaries, metadata in data catalogues should provide this info.
 :::
 
-## Let's Control the Schema
+<!-- ## Let's Control the Schema -->
 
-<br>
+<!-- <br> -->
 
-Creating a schema manually:
+<!-- Creating a schema manually: -->
 
-```{r}
-#| label: seattle-schema-write
-#| eval: false
-schema(
-  UsageClass = utf8(),
-  CheckoutType = utf8(),
-  MaterialType = utf8(),
-  ...
-)
-```
+<!-- ```{r} -->
+<!-- #| label: seattle-schema-write -->
+<!-- #| eval: false -->
+<!-- schema( -->
+<!--   UsageClass = utf8(), -->
+<!--   CheckoutType = utf8(), -->
+<!--   MaterialType = utf8(), -->
+<!--   ... -->
+<!-- ) -->
+<!-- ``` -->
 
-<br>
+<!-- <br> -->
 
-This will take a lot of typing with 12 columns 😢
+<!-- This will take a lot of typing with 12 columns 😢 -->
 
 ## Let's Control the Schema
 
@@ -296,14 +303,16 @@ seattle_csv <- open_dataset(
   col_types = schema(ISBN = string()),
   format = "csv"
 )
+
+schema(seattle_csv)
 ```
 
-## Previewing the data
+<!-- ## Previewing the data -->
 
-```{r}
-#| label: glimpse
-seattle_csv |> glimpse()
-```
+<!-- ```{r} -->
+<!-- #| label: glimpse -->
+<!-- seattle_csv |> glimpse() -->
+<!-- ``` -->
 
 # Part 3 - Data Manipulation with Arrow
 
@@ -317,9 +326,7 @@ seattle_csv |> glimpse()
 ![](images/dplyr-backend.png)
 
 ::: notes
-LIVE CODING - Data contains book, ebooks, things which aren't book - Do *not* call collect() after first query - talk about lazy eval and show the query - endsWith to ends_with; this is actually an arrow C++ lib func - Don't want to pull all into memory as it's a lot of data; preview using head - Now look at the outputs of that - Next: How many books and ebooks were checked out each year?
-- Don't need to call head() to preview as the data returned is just a row for each year - Run again with a timer set, then walk through results - Walk through the data, drop in 2020 - pandemic?
-- Not bad, it can be faster and this is what we'll talk about in part 3 RECAP - Any questions?
+LIVE CODING - Data contains book, ebooks, things which aren't book - Do *not* call collect() after first query - talk about lazy eval and show the query - endsWith to ends_with; this is actually an arrow C++ lib func - Don't want to pull all into memory as it's a lot of data; preview using head - Now look at the outputs of that - Next: How many books and ebooks were checked out each year? - Don't need to call head() to preview as the data returned is just a row for each year - Run again with a timer set, then walk through results - Walk through the data, drop in 2020 - pandemic? - Not bad, it can be faster and this is what we'll talk about in part 3 RECAP - Any questions?
 :::
 
 ## Querying the data - new column: is this a book?
@@ -439,6 +446,24 @@ file.size(file) / 10**9
 <br>
 
 Parquet about half the size of the CSV file on-disk 💾
+
+## 4.5GB Parquet file + arrow + dplyr
+
+```{r}
+#| label: seattle-single-parquet-dplyr-timed
+open_dataset(seattle_parquet_dir, 
+             format = "parquet") |>
+  filter(endsWith(MaterialType, "BOOK")) |>
+  group_by(CheckoutYear) |>
+  summarise(Checkouts = sum(Checkouts)) |>
+  arrange(CheckoutYear) |> 
+  collect() |>
+  system.time()
+```
+
+<br>
+
+42 million rows -- much better! But could be *even* faster....
 
 ## File Storage: Partitioning
 
