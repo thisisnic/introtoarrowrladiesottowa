@@ -1,6 +1,7 @@
 project: 
   render:
     - slides.qmd
+  output-dir: slides
 
 format:
   html:
@@ -13,3 +14,4 @@ editor: visual
 engine: knitr
 execute:
   freeze: auto
+  
