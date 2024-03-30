@@ -8,7 +8,7 @@
 <link href="slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="slides_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.3.450">
 
   <title>slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -397,30 +397,42 @@
 </figure>
 </div>
 </section>
-<section id="intros" class="slide level2">
-<h2>Intros</h2>
+<section id="introductions" class="slide level2">
+<h2>Introductions</h2>
 <ul>
 <li>Stephanie Hazlitt</li>
 <li>Nic Crane</li>
 </ul>
 <p>Arrow contributors!</p>
+<aside class="notes">
+<p>Have participants introduce themselves in the chat</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="welcome" class="slide level2">
 <h2>Welcome!</h2>
 <p>Today we’re going to cover:</p>
 <ul>
 <li>Working with larger-than-memory datasets with Arrow</li>
-<li>How to get the best performance out in your analyses<br>
-</li>
+<li>How to get the best performance with your tabular data</li>
 <li>Where to find more information</li>
 </ul>
 </section>
 <section id="workshop-format" class="slide level2">
 <h2>Workshop format</h2>
 <ul>
-<li>Slides available at https://tinyurl.com/introtoarrow</li>
+<li>Slides available at <a href="https://tinyurl.com/introtoarrow" class="uri">https://tinyurl.com/introtoarrow</a></li>
 <li>Follow-along coding</li>
-<li>Gaps to ask questions</li>
+<li>Time to ask questions</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -441,7 +453,7 @@
 <section id="getting-set-up" class="slide level2">
 <h2>Getting set up</h2>
 
-<img data-src="images/newproj.png" class="r-stretch"><p>Repository URL: https://github.com/thisisnic/introtoarrowworkshop</p>
+<img data-src="images/newproj.png" class="r-stretch"><p>Repository URL: <a href="https://github.com/thisisnic/introtoarrowworkshop" class="uri">https://github.com/thisisnic/introtoarrowworkshop</a></p>
 </section>
 <section id="dataset-to-follow-along-with" class="slide level2">
 <h2>Dataset to follow along with</h2>
@@ -480,7 +492,7 @@
 <aside class="notes">
 <ul>
 <li>any questions before we get started?</li>
-<li>this section will cover a bit of background info about arrow</li>
+<li>this section will cover a bit of background info about Apache Arrow</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -556,7 +568,7 @@
 
 <img data-src="images/data-interchange-with-arrow.png" class="r-stretch"><aside class="notes">
 <ul>
-<li>standardisation means multiple things speaking arrow prevents copying back and forth</li>
+<li>standardisation means multiple things speaking Arrow prevents copying back and forth</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -579,7 +591,7 @@
 <li>intro the toy dataset</li>
 <li>memory buffers are a 1-dimension structure, not like a 2D table/data.frame</li>
 <li>walk through this in the 2 diagrams</li>
-<li>analytics workflows typically have filtering, grouping by columns etc; give examples</li>
+<li>analytic workflows typically have filtering, grouping by columns etc; give examples</li>
 <li>faster to scan adjacent areas than picking through it all + taking advantage of vectorization available on modern processes speeds up faster</li>
 </ul>
 <style type="text/css">
@@ -640,10 +652,12 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="seattle-checkouts-big-csv" class="slide level2">
-<h2>Seattle<br>Checkouts<br>Big CSV</h2>
-<p><img data-src="images/seattle-checkouts.png" class="absolute" style="top: 0px; left: 300px; "></p>
-<p>https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data</p>
+<section id="seattle-checkouts---big-csv" class="slide level2">
+<h2>Seattle Checkouts - Big CSV</h2>
+<p><img data-src="images/seattle-checkouts.png" class="absolute" style="top: 120px; left: 200px; height: 550px; "></p>
+<div style="font-size: 70%;">
+<p><a href="https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data" class="uri">https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data</a></p>
+</div>
 <aside class="notes">
 <ul>
 <li>LIVE CODING
@@ -779,7 +793,7 @@ Publisher: string
 PublicationYear: string</code></pre>
 </div>
 </div>
-<p><img data-src="images/data-dict.png" class="absolute" style="top: 300px; left: 330px; width: 700px; "></p>
+<p><img data-src="images/data-dict.png" class="absolute" style="top: 200px; left: 330px; width: 700px; "></p>
 <aside class="notes">
 <p>International Standard Book Number (ISBN) is a 13-digit number that uniquely identifies books and book-like products published internationally.</p>
 <p>Data Dictionaries, metadata in data catalogues should provide this info.</p>
@@ -794,53 +808,53 @@ PublicationYear: string</code></pre>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+<!-- ## Let's Control the Schema -->
+<!-- <br> -->
+<!-- Creating a schema manually: -->
+<!-- ```{r} -->
+<!-- #| label: seattle-schema-write -->
+<!-- #| eval: false -->
+<!-- schema( -->
+<!--   UsageClass = utf8(), -->
+<!--   CheckoutType = utf8(), -->
+<!--   MaterialType = utf8(), -->
+<!--   ... -->
+<!-- ) -->
+<!-- ``` -->
+<!-- <br> -->
+<!-- This will take a lot of typing with 12 columns 😢 -->
 </section>
 <section id="lets-control-the-schema" class="slide level2">
 <h2>Let’s Control the Schema</h2>
-<p><br></p>
-<p>Creating a schema manually:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">schema</span>(</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="at">UsageClass =</span> <span class="fu">utf8</span>(),</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="at">CheckoutType =</span> <span class="fu">utf8</span>(),</span>
-<span id="cb11-4"><a href="#cb11-4"></a>  <span class="at">MaterialType =</span> <span class="fu">utf8</span>(),</span>
-<span id="cb11-5"><a href="#cb11-5"></a>  ...</span>
-<span id="cb11-6"><a href="#cb11-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
-<p>This will take a lot of typing with 12 columns 😢</p>
-</section>
-<section id="lets-control-the-schema-1" class="slide level2">
-<h2>Let’s Control the Schema</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>seattle_csv <span class="ot">&lt;-</span> <span class="fu">open_dataset</span>(</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="at">sources =</span> <span class="st">"./data/seattle-library-checkouts.csv"</span>, </span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="at">col_types =</span> <span class="fu">schema</span>(<span class="at">ISBN =</span> <span class="fu">string</span>()),</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="at">format =</span> <span class="st">"csv"</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="previewing-the-data" class="slide level2">
-<h2>Previewing the data</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>seattle_csv <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>seattle_csv <span class="ot">&lt;-</span> <span class="fu">open_dataset</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="at">sources =</span> <span class="st">"./data/seattle-library-checkouts.csv"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="at">col_types =</span> <span class="fu">schema</span>(<span class="at">ISBN =</span> <span class="fu">string</span>()),</span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="at">format =</span> <span class="st">"csv"</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="fu">schema</span>(seattle_csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>FileSystemDataset with 1 csv file
-41,389,465 rows x 12 columns
-$ UsageClass      &lt;string&gt; "Physical", "Physical", "Digital", "Physical", "Physi…
-$ CheckoutType    &lt;string&gt; "Horizon", "Horizon", "OverDrive", "Horizon", "Horizo…
-$ MaterialType    &lt;string&gt; "BOOK", "BOOK", "EBOOK", "BOOK", "SOUNDDISC", "BOOK",…
-$ CheckoutYear     &lt;int64&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016,…
-$ CheckoutMonth    &lt;int64&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,…
-$ Checkouts        &lt;int64&gt; 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 2, 3, 2, 1, 3, 2, 3,…
-$ Title           &lt;string&gt; "Super rich : a guide to having it all / Russell Simm…
-$ ISBN            &lt;string&gt; "", "", "", "", "", "", "", "", "", "", "", "", "", "…
-$ Creator         &lt;string&gt; "Simmons, Russell", "Barclay, James, 1965-", "Tim Par…
-$ Subjects        &lt;string&gt; "Self realization, Conduct of life, Attitude Psycholo…
-$ Publisher       &lt;string&gt; "Gotham Books,", "Pyr,", "Random House, Inc.", "Dial …
-$ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "c2005.…</code></pre>
+<pre><code>Schema
+UsageClass: string
+CheckoutType: string
+MaterialType: string
+CheckoutYear: int64
+CheckoutMonth: int64
+Checkouts: int64
+Title: string
+ISBN: string
+Creator: string
+Subjects: string
+Publisher: string
+PublicationYear: string</code></pre>
 </div>
 </div>
+<!-- ## Previewing the data -->
+<!-- ```{r} -->
+<!-- #| label: glimpse -->
+<!-- seattle_csv |> glimpse() -->
+<!-- ``` -->
 </section></section>
 <section>
 <section id="part-3---data-manipulation-with-arrow" class="title-slide slide level1 center">
@@ -882,9 +896,9 @@ $ PublicationYear &lt;string&gt; "c2011.", "2010.", "2015", "2005.", "c2004.", "
 <section id="querying-the-data---new-column-is-this-a-book" class="slide level2">
 <h2>Querying the data - new column: is this a book?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">mutate</span>(<span class="at">IsBook =</span> <span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">select</span>(MaterialType, IsBook)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">mutate</span>(<span class="at">IsBook =</span> <span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">select</span>(MaterialType, IsBook)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FileSystemDataset (query)
 MaterialType: string
@@ -897,11 +911,11 @@ See $.data for the source Arrow object</code></pre>
 <section id="preview-the-query" class="slide level2">
 <h2>Preview the query</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="|2,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">mutate</span>(<span class="at">IsBook =</span> <span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">select</span>(MaterialType, IsBook) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="|2,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">mutate</span>(<span class="at">IsBook =</span> <span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">select</span>(MaterialType, IsBook) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 2
    MaterialType IsBook
@@ -932,12 +946,12 @@ See $.data for the source Arrow object</code></pre>
 <section id="how-many-books-were-checked-out-each-year" class="slide level2">
 <h2>How many books were checked out each year?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">group_by</span>(CheckoutYear) <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">summarise</span>(<span class="at">Checkouts =</span> <span class="fu">sum</span>(Checkouts)) <span class="sc">|&gt;</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">arrange</span>(CheckoutYear) <span class="sc">|&gt;</span> </span>
-<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">group_by</span>(CheckoutYear) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">summarise</span>(<span class="at">Checkouts =</span> <span class="fu">sum</span>(Checkouts)) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">arrange</span>(CheckoutYear) <span class="sc">|&gt;</span> </span>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 18 × 2
    CheckoutYear Checkouts
@@ -966,16 +980,16 @@ See $.data for the source Arrow object</code></pre>
 <section id="how-long-did-it-take" class="slide level2">
 <h2>How long did it take?</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">group_by</span>(CheckoutYear) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">summarise</span>(<span class="at">Checkouts =</span> <span class="fu">sum</span>(Checkouts)) <span class="sc">|&gt;</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">arrange</span>(CheckoutYear) <span class="sc">|&gt;</span> </span>
-<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">collect</span>() <span class="sc">|&gt;</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>seattle_csv <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">group_by</span>(CheckoutYear) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">summarise</span>(<span class="at">Checkouts =</span> <span class="fu">sum</span>(Checkouts)) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">arrange</span>(CheckoutYear) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">collect</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 13.930   1.565  12.464 </code></pre>
+ 11.909   1.031  10.767 </code></pre>
 </div>
 </div>
 <p>42 million rows – not bad, but could be faster….</p>
@@ -1045,23 +1059,42 @@ See $.data for the source Arrow object</code></pre>
 <section id="writing-to-parquet" class="slide level2">
 <h2>Writing to Parquet</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>seattle_parquet_dir <span class="ot">&lt;-</span> <span class="st">"./data/seattle-library-checkouts-parquet"</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a></span>
-<span id="cb23-3"><a href="#cb23-3"></a>seattle_csv <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">write_dataset</span>(<span class="at">path =</span> seattle_parquet_dir, <span class="at">format =</span> <span class="st">"parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>seattle_parquet_dir <span class="ot">&lt;-</span> <span class="st">"./data/seattle-library-checkouts-parquet"</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a>seattle_csv <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">write_dataset</span>(<span class="at">path =</span> seattle_parquet_dir, <span class="at">format =</span> <span class="st">"parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="storage-parquet-vs-csv" class="slide level2">
 <h2>Storage: Parquet vs CSV</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>file <span class="ot">&lt;-</span> <span class="fu">list.files</span>(seattle_parquet_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">file.size</span>(file) <span class="sc">/</span> <span class="dv">10</span><span class="sc">**</span><span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>file <span class="ot">&lt;-</span> <span class="fu">list.files</span>(seattle_parquet_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">file.size</span>(file) <span class="sc">/</span> <span class="dv">10</span><span class="sc">**</span><span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.423348</code></pre>
+<pre><code>[1] 4.424267</code></pre>
 </div>
 </div>
 <p><br></p>
 <p>Parquet about half the size of the CSV file on-disk 💾</p>
+</section>
+<section id="gb-parquet-file-arrow-dplyr" class="slide level2">
+<h2>4.5GB Parquet file + arrow + dplyr</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">open_dataset</span>(seattle_parquet_dir, </span>
+<span id="cb24-2"><a href="#cb24-2"></a>             <span class="at">format =</span> <span class="st">"parquet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">filter</span>(<span class="fu">endsWith</span>(MaterialType, <span class="st">"BOOK"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">group_by</span>(CheckoutYear) <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">summarise</span>(<span class="at">Checkouts =</span> <span class="fu">sum</span>(Checkouts)) <span class="sc">|&gt;</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">arrange</span>(CheckoutYear) <span class="sc">|&gt;</span> </span>
+<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">collect</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   user  system elapsed 
+  4.436   0.558   0.944 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>42 million rows – much better! But could be <em>even</em> faster….</p>
 </section>
 <section id="file-storage-partitioning" class="slide level2">
 <h2>File Storage: Partitioning</h2>
@@ -1116,7 +1149,7 @@ See $.data for the source Arrow object</code></pre>
 <pre><code># A tibble: 18 × 2
    files                            size_GB
    &lt;chr&gt;                              &lt;dbl&gt;
- 1 CheckoutYear=2005/part-0.parquet   0.114
+ 1 CheckoutYear=2005/part-0.parquet   0.115
  2 CheckoutYear=2006/part-0.parquet   0.172
  3 CheckoutYear=2007/part-0.parquet   0.186
  4 CheckoutYear=2008/part-0.parquet   0.204
@@ -1130,7 +1163,7 @@ See $.data for the source Arrow object</code></pre>
 12 CheckoutYear=2016/part-0.parquet   0.315
 13 CheckoutYear=2017/part-0.parquet   0.319
 14 CheckoutYear=2018/part-0.parquet   0.306
-15 CheckoutYear=2019/part-0.parquet   0.302
+15 CheckoutYear=2019/part-0.parquet   0.303
 16 CheckoutYear=2020/part-0.parquet   0.158
 17 CheckoutYear=2021/part-0.parquet   0.24 
 18 CheckoutYear=2022/part-0.parquet   0.252</code></pre>
@@ -1153,7 +1186,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb29-11"><a href="#cb29-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  4.723   0.478   0.590 </code></pre>
+  4.140   0.486   0.652 </code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1204,7 +1237,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb31-10"><a href="#cb31-10"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 13.481   1.974  12.456 </code></pre>
+ 12.015   1.175  11.690 </code></pre>
 </div>
 </div>
 </section>
@@ -1223,7 +1256,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb33-8"><a href="#cb33-8"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.354   0.032   0.091 </code></pre>
+  0.255   0.041   0.070 </code></pre>
 </div>
 </div>
 </section>
@@ -1271,7 +1304,7 @@ See $.data for the source Arrow object</code></pre>
 </div>
 <p><img src="images/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>https://github.com/thisisnic/introtoarrowworkshop</p>
+<p><a href="https://github.com/thisisnic/introtoarrowworkshop">🔗 https://github.com/thisisnic/introtoarrowworkshop</a></p>
 </div>
 </section></section>
     </div>
