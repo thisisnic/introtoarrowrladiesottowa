@@ -26,7 +26,7 @@ Detailed instructions for software requirements and data sources are shown below
 
 Set up a new project in RStudio using this workshop, so you have a copy of the slides and code.
 
-![](images/newproj.png){width="447"}
+<img src="images/newproj.png" width="447"/>
 
 Repository URL: <https://github.com/thisisnic/introtoarrowworkshop>
 
