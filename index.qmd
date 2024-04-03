@@ -71,6 +71,8 @@ download.file(
 
 ## Backup option - Posit Cloud & Tiny Dataset
 
+<br> <https://posit.cloud/spaces/463702/content/7918787>
+
 # Part 1 - Arrow
 
 ::: notes
@@ -166,6 +168,10 @@ Arrow's Columnar Format is Fast
 ::: {style="font-size: 70%;"}
 <https://data.seattle.gov/Community/Checkouts-by-Title/tmmm-ytt6/about_data>
 :::
+
+## Dataset contents
+
+![](images/datapreview.png){height="550"}
 
 ::: notes
 -   LIVE CODING
@@ -298,7 +304,9 @@ schema(seattle_csv)
 ![](images/dplyr-backend.png)
 
 ::: notes
-LIVE CODING - Data contains book, ebooks, things which aren't book - Do *not* call collect() after first query - talk about lazy eval and show the query - endsWith to ends_with; this is actually an arrow C++ lib func - Don't want to pull all into memory as it's a lot of data; preview using head - Now look at the outputs of that - Next: How many books and ebooks were checked out each year? - Don't need to call head() to preview as the data returned is just a row for each year - Run again with a timer set, then walk through results - Walk through the data, drop in 2020 - pandemic? - Not bad, it can be faster and this is what we'll talk about in part 3 RECAP - Any questions?
+LIVE CODING - Data contains book, ebooks, things which aren't book - Do *not* call collect() after first query - talk about lazy eval and show the query - endsWith to ends_with; this is actually an arrow C++ lib func - Don't want to pull all into memory as it's a lot of data; preview using head - Now look at the outputs of that - Next: How many books and ebooks were checked out each year?
+- Don't need to call head() to preview as the data returned is just a row for each year - Run again with a timer set, then walk through results - Walk through the data, drop in 2020 - pandemic?
+- Not bad, it can be faster and this is what we'll talk about in part 3 RECAP - Any questions?
 :::
 
 ## Querying the data - new column: is this a book?
@@ -309,6 +317,8 @@ seattle_csv |>
   mutate(IsBook = endsWith(MaterialType, "BOOK")) |>
   select(MaterialType, IsBook)
 ```
+
+Nothing is pulled into memory yet!
 
 ## Preview the query
 
@@ -435,7 +445,8 @@ open_dataset(seattle_parquet_dir,
 
 <br>
 
-42 million rows -- much better! But could be *even* faster....
+42 million rows -- much better!
+But could be *even* faster....
 
 ## File Storage: Partitioning
 
@@ -569,6 +580,8 @@ open_dataset("./data/seattle-library-checkouts",
 
 ## Arrow docs
 
+<https://arrow.apache.org/docs/r/>
+
 ![](images/docs.png)
 
 ## R for Data Science (2e)
@@ -598,6 +611,5 @@ open_dataset("./data/seattle-library-checkouts",
 
 ::: {.column width="50%"}
 Currently being written - preview available online soon!
-
 :::
 :::
