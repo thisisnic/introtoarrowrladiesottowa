@@ -599,8 +599,5 @@ open_dataset("./data/seattle-library-checkouts",
 ::: {.column width="50%"}
 Currently being written - preview available online soon!
 
-<br>
-
-<https://arrowrbook.com>
 :::
 :::
