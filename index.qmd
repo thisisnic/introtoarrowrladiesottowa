@@ -5,7 +5,7 @@ execute:
 format:
   revealjs: 
     theme: default
-    slide-number: true
+    slide-number: true  
 footer: "[🔗 https://github.com/thisisnic/introtoarrowworkshop](https://github.com/thisisnic/introtoarrowworkshop)"
 engine: knitr
 editor: source
