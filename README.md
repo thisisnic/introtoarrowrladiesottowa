@@ -1,16 +1,12 @@
-# Intro to Arrow Workshop
+# Introduction to Arrow in R Workshop
 
 by Steph Hazlitt & Nic Crane
 
-### Workshop Website
-
-This repository contains materials for the **Intro to Arrow** workshop.
+This repository contains materials for the **Introduction to Arrow in R** \~2-hour workshop.
 
 ### Workshop Overview
 
-This workshop will focus on using the arrow R package---a mature R interface to Apache Arrow---to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax.
-You'll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems.
-This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.
+This workshop will focus on using the arrow R package---a mature R interface to Apache Arrow---to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You'll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.
 
 *This course is for you if you:*
 
@@ -38,8 +34,7 @@ To install the required core packages for the workshop, run the following:
 install.packages(c("arrow", "dplyr"))
 ```
 
-**Please note - macOS users only**: at time of writing (2nd April 2024), the version of arrow which can be installed from CRAN doesn't have all the features enabled.
-Instead please install from an alternative repo such as R Universe:
+**Please note - macOS users only**: at time of writing (2nd April 2024), the version of arrow which can be installed from CRAN doesn't have all the features enabled. Instead please install from an alternative repo such as R Universe:
 
 ```{r}
 install.packages('arrow', repos = c('https://apache.r-universe.dev'))
@@ -47,8 +42,7 @@ install.packages('arrow', repos = c('https://apache.r-universe.dev'))
 
 #### 3 (Option a). Seattle Checkouts by Title Data
 
-This is the data we will use in the workshop.
-It's a good-sized, single CSV file---*9GB* on-disk in total, which can be downloaded from an AWS S3 bucket via https:
+This is the data we will use in the workshop. It's a good-sized, single CSV file---*9GB* on-disk in total, which can be downloaded from an AWS S3 bucket via https:
 
 ```{r}
 options(timeout = 1800)
@@ -60,8 +54,7 @@ download.file(
 
 #### 3 (Option b). Tiny Data Option
 
-If you don't have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with "tiny" version of this data.
-Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data---although note you may not see the same performance improvements that you would get when working with larger data.
+If you don't have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with "tiny" version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data---although note you may not see the same performance improvements that you would get when working with larger data.
 
 ```{r}
 options(timeout = 1800)
