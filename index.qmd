@@ -293,10 +293,6 @@ seattle_csv <- open_dataset(
 schema(seattle_csv)
 ```
 
-::: notes
-Can also use this to see code for the schema: `seattle_csv$schema$code()`
-:::
-
 # Part 3 - Data Manipulation with Arrow
 
 ::: notes
