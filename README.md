@@ -4,7 +4,7 @@ by Steph Hazlitt & Nic Crane
 
 This repository contains materials for the **Introduction to Arrow in R** \~2-hour workshop.
 
-Slides: <https://thisisnic.github.io/introtoarrowworkshop/>
+Slides: <https://tinyurl.com/arrowrladiesottowa/>
 
 ### Workshop Overview
 
@@ -20,7 +20,7 @@ Set up a new project in RStudio using this workshop, so you have a copy of the s
 
 <img src="images/newproj.png" width="447"/>
 
-Repository URL: <https://github.com/thisisnic/introtoarrowworkshop>
+Repository URL: <https://github.com/thisisnic/introtoarrowworkshoprladiesottowa>
 
 #### 2. Install Required Packages
 

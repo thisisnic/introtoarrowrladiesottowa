@@ -6,7 +6,7 @@ format:
   revealjs: 
     theme: default
     slide-number: true  
-footer: "[🔗 https://github.com/thisisnic/introtoarrowworkshop](https://github.com/thisisnic/introtoarrowworkshop)"
+footer: "[🔗 https://github.com/thisisnic/introtoarrowworkshoprladiesottowa](https://github.com/thisisnic/introtoarrowworkshoprladiesottowa)"
 engine: knitr
 editor: source
 ---
@@ -36,7 +36,7 @@ Today we're going to cover:
 
 ## Workshop format
 
--   Slides available at <https://tinyurl.com/introtoarrow>
+-   Slides available at <https://tinyurl.com/arrowrladiesottowa>
 -   Follow-along coding
 -   Time to ask questions
 
