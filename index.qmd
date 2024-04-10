@@ -399,11 +399,9 @@ seattle_csv |>
 
 ## Parquet
 
--   compression and encoding - usually much smaller than equivalent CSV file
--   less data to move from disk to memory == save time
+-   compression and encoding == usually much smaller than equivalent CSV file, less data to move from disk to memory
 -   rich type system & stores the schema along with the data == more robust pipelines
--   "column-oriented" == better performance over CSV's row-by-row
--   "row-chunked" == work on different parts of the file at the same time or skip some chunks all together
+-   "row-chunked & column-oriented" == work on different parts of the file at the same time or skip some chunks all together, better performance than row-by-row
 
 ## Writing to Parquet
 
