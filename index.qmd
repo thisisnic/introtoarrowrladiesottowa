@@ -17,7 +17,7 @@ editor: source
 
 ## Introductions
 
--   Stephanie Hazlitt
+-   Steph Hazlitt
 -   Nic Crane
 
 Arrow contributors!
@@ -72,6 +72,7 @@ download.file(
 ## Backup option - Posit Cloud & Tiny Dataset
 
 <br> <https://posit.cloud/spaces/463702/content/7918787>
+
 
 # Part 1 - Arrow
 
@@ -128,7 +129,7 @@ In-memory [columnar format]{style="background-color: #F3D1FF;"}: a [standardized
 
 Arrow's Columnar Format is Fast
 
-![](images/columnar-fast.png){.absolute top="120" left="200" height="600"}
+![](images/columnar-fast.png){.absolute top="120" left="200" height="550"}
 
 ::: notes
 -   intro the toy dataset
@@ -362,6 +363,16 @@ seattle_csv |>
 
 # Part 4 - Engineering the Data
 
+## .NORM Files
+
+![](images/norm_normal_file_format_2x.png){.absolute top="0" left="400"}
+
+<br>
+
+::: {style="font-size: 70%;"}
+<https://xkcd.com/2116/>
+:::
+
 ## File Format: Apache Parquet
 
 ![](images/apache-parquet.png){.absolute top="100" left="200" width="700"}
@@ -370,19 +381,9 @@ seattle_csv |>
 <https://parquet.apache.org/>
 :::
 
-## Parquet
-
--   compression and encoding - usually much smaller than equivalent CSV file
--   rich type system & stores the schema along with the data
--   "column-oriented" == better performance over CSV's row-by-row
--   "row-chunked" == work on different parts of the file at the same time or skip some chunks all together
-
 ::: notes
--   CSVs widely used common format
--   Parquet is a popular format for bigger data
+-   While CSVs widely used common format, Parquet is a popular format for bigger data
 -   optimised for analytics workflows
--   efficient encodings to keep file size down, and supports file compression, less data to move from disk to memory
--   CSV has no info about data types, inferred by each parser - Parquet stores the type
 :::
 
 ## Parquet Files: "row-chunked"
@@ -393,11 +394,14 @@ seattle_csv |>
 
 ![](images/parquet-columnar.png)
 
-::: notes
-LIVE CODING -
 
-RECAP - Any questions?
-:::
+## Parquet
+
+-   compression and encoding - usually much smaller than equivalent CSV file
+-   less data to move from disk to memory == save time
+-   rich type system & stores the schema along with the data == more robust pipelines
+-   "column-oriented" == better performance over CSV's row-by-row
+-   "row-chunked" == work on different parts of the file at the same time or skip some chunks all together
 
 ## Writing to Parquet
 
@@ -421,8 +425,11 @@ seattle_csv |>
 
 ```{r}
 #| label: seattle-single-parquet-size
-file <- list.files(seattle_parquet_dir, recursive = TRUE, full.names = TRUE)
-file.size(file) / 10**9
+file <- list.files(seattle_parquet_dir,
+                   recursive = TRUE,
+                   full.names = TRUE)
+
+file.size(file) / 10 ** 9
 ```
 
 <br>
@@ -486,7 +493,8 @@ seattle_csv |>
 seattle_parquet_part <- "./data/seattle-library-checkouts"
 
 sizes <- tibble(
-  files = list.files(seattle_parquet_part, recursive = TRUE),
+  files = list.files(seattle_parquet_part,
+                     recursive = TRUE),
   size_GB = round(file.size(file.path(seattle_parquet_part, files)) / 10**9, 3)
 )
 
@@ -499,15 +507,14 @@ sizes
 #| label: seattle-partitioned-dplyr-timed
 seattle_parquet_part <- "./data/seattle-library-checkouts"
 
-system.time(
-  books_by_year <- open_dataset(seattle_parquet_part,
-               format = "parquet") |>
-    filter(endsWith(MaterialType, "BOOK")) |>
-    group_by(CheckoutYear) |>
-    summarise(Checkouts = sum(Checkouts)) |>
-    arrange(CheckoutYear) |> 
-    collect()
-)
+open_dataset(seattle_parquet_part,
+             format = "parquet") |>
+  filter(endsWith(MaterialType, "BOOK")) |>
+  group_by(CheckoutYear) |>
+  summarise(Checkouts = sum(Checkouts)) |>
+  arrange(CheckoutYear) |>
+  collect() |>
+  system.time()
 ```
 
 <br>
@@ -538,10 +545,8 @@ How long does it take to calculate the number of books checked out in each month
 
 ```{r}
 #| label: seattle-single-csv-dplyr-timed
-open_dataset(
-  sources = "./data/seattle-library-checkouts.csv", 
-  format = "csv"
-) |> 
+open_dataset(sources = "./data/seattle-library-checkouts.csv",
+             format = "csv") |>
   filter(CheckoutYear == 2021, endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutMonth) |>
   summarize(TotalCheckouts = sum(Checkouts)) |>
@@ -559,7 +564,7 @@ How long does it take to calculate the number of books checked out in each month
 ```{r}
 #| label: seattle-parquet-partitioned-dplyr-timed
 open_dataset("./data/seattle-library-checkouts",
-             format = "parquet") |> 
+             format = "parquet") |>
   filter(CheckoutYear == 2021, endsWith(MaterialType, "BOOK")) |>
   group_by(CheckoutMonth) |>
   summarize(TotalCheckouts = sum(Checkouts)) |>
