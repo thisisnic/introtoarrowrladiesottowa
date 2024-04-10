@@ -2,7 +2,7 @@
 
 by Steph Hazlitt & Nic Crane
 
-This repository contains materials for the **Introduction to Arrow in R** \~2-hour workshop.
+This repository contains materials for the **Introduction to Arrow in R** \~2-hour workshop delivered to RLadies Ottawa (10 April 2024).
 
 Slides: <https://tinyurl.com/arrowrladiesottowa/>
 
