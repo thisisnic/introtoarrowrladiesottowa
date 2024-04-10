@@ -13,7 +13,9 @@ editor: source
 
 ## Introduction to Arrow in R
 
-![](images/logo.png){fig-align="center" width="500" height="600"}
+R-Ladies Ottawa Workshop (10 April 2024)
+
+![](images/logo.png){fig-align="center" width="415" height="500"}
 
 ## Introductions
 
