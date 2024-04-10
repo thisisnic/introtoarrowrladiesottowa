@@ -48,7 +48,7 @@ Today we're going to cover:
 
 ![](images/newproj.png)
 
-Repository URL: <https://github.com/thisisnic/introtoarrowworkshop>
+Repository URL: <https://github.com/thisisnic/introtoarrowrladiesottowa>
 
 ## Dataset to follow along with
 
