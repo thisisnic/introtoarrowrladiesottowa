@@ -4,15 +4,11 @@ by Steph Hazlitt & Nic Crane
 
 This repository contains materials for the **Introduction to Arrow in R** \~2-hour workshop.
 
+Slides: <https://thisisnic.github.io/introtoarrowworkshop/>
+
 ### Workshop Overview
 
-This workshop will focus on using the arrow R package---a mature R interface to Apache Arrow---to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You'll learn to create and use interoperable data file formats like Parquet for efficient data storage and access, and also how to exercise fine control over data types to avoid common large data pipeline problems. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.
-
-*This course is for you if you:*
-
--   want to learn how to work with tabular data that is too large to fit in memory using existing R and tidyverse syntax implemented in Arrow
--   want to learn about Parquet and other file formats that are powerful alternatives to CSV files
--   want to learn how to engineer your tabular data storage for more performant access and analysis with Apache Arrow
+This workshop will focus on using the arrow R package&mdash;a mature R interface to Apache Arrow&mdash;to process larger-than-memory files and multi-file datasets with arrow using familiar dplyr syntax. You'll learn to create and use the interoperable data file format Parquet for efficient data storage and access. This workshop will provide a foundation for using Arrow, giving you access to a powerful suite of tools for performant analysis of larger-than-memory data in R.
 
 ### Workshop Prework
 
@@ -42,7 +38,7 @@ install.packages('arrow', repos = c('https://apache.r-universe.dev'))
 
 #### 3 (Option a). Seattle Checkouts by Title Data
 
-This is the data we will use in the workshop. It's a good-sized, single CSV file---*9GB* on-disk in total, which can be downloaded from an AWS S3 bucket via https:
+This is the data we will use in the workshop. It's a good-sized, single CSV file&mdash;*9GB* on-disk in total, which can be downloaded from an AWS S3 bucket via https:
 
 ```{r}
 options(timeout = 1800)
@@ -54,7 +50,7 @@ download.file(
 
 #### 3 (Option b). Tiny Data Option
 
-If you don't have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with "tiny" version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data---although note you may not see the same performance improvements that you would get when working with larger data.
+If you don't have time or disk space to download the 9Gb dataset (and still have disk space to do the exercises), you can run the code in the workshop with "tiny" version of this data. Although the focus in this course is working with larger-than-memory data, you can still learn about the concepts and workflows with smaller data&mdash;although note you may not see the same performance improvements that you would get when working with larger data.
 
 ```{r}
 options(timeout = 1800)
