@@ -8,7 +8,7 @@
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.3.450">
 
   <title>index</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -391,9 +391,10 @@
 
 <section id="introduction-to-arrow-in-r" class="slide level2">
 <h2>Introduction to Arrow in R</h2>
+<p>R-Ladies Ottawa Workshop (10 April 2024)</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/logo.png" width="500" height="600"></p>
+<p><img data-src="images/logo.png" width="415" height="500"></p>
 </figure>
 </div>
 </section>
@@ -453,7 +454,7 @@
 <section id="getting-set-up" class="slide level2">
 <h2>Getting set up</h2>
 
-<img data-src="images/newproj.png" class="r-stretch"><p>Repository URL: <a href="https://github.com/thisisnic/introtoarrowworkshop" class="uri">https://github.com/thisisnic/introtoarrowworkshop</a></p>
+<img data-src="images/newproj.png" class="r-stretch"><p>Repository URL: <a href="https://github.com/thisisnic/introtoarrowrladiesottowa" class="uri">https://github.com/thisisnic/introtoarrowrladiesottowa</a></p>
 </section>
 <section id="dataset-to-follow-along-with" class="slide level2">
 <h2>Dataset to follow along with</h2>
@@ -975,7 +976,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 13.852   1.303  12.440 </code></pre>
+ 11.810   1.066  10.924 </code></pre>
 </div>
 </div>
 <p>42 million rows – not bad, but could be faster….</p>
@@ -1052,7 +1053,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb22-4"><a href="#cb22-4"></a></span>
 <span id="cb22-5"><a href="#cb22-5"></a><span class="fu">file.size</span>(file) <span class="sc">/</span> <span class="dv">10</span> <span class="sc">**</span> <span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.423348</code></pre>
+<pre><code>[1] 4.424267</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1071,7 +1072,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  5.511   0.343   0.849 </code></pre>
+  3.908   0.549   0.897 </code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1131,7 +1132,7 @@ See $.data for the source Arrow object</code></pre>
 <pre><code># A tibble: 18 × 2
    files                            size_GB
    &lt;chr&gt;                              &lt;dbl&gt;
- 1 CheckoutYear=2005/part-0.parquet   0.114
+ 1 CheckoutYear=2005/part-0.parquet   0.115
  2 CheckoutYear=2006/part-0.parquet   0.172
  3 CheckoutYear=2007/part-0.parquet   0.186
  4 CheckoutYear=2008/part-0.parquet   0.204
@@ -1145,7 +1146,7 @@ See $.data for the source Arrow object</code></pre>
 12 CheckoutYear=2016/part-0.parquet   0.315
 13 CheckoutYear=2017/part-0.parquet   0.319
 14 CheckoutYear=2018/part-0.parquet   0.306
-15 CheckoutYear=2019/part-0.parquet   0.302
+15 CheckoutYear=2019/part-0.parquet   0.303
 16 CheckoutYear=2020/part-0.parquet   0.158
 17 CheckoutYear=2021/part-0.parquet   0.24 
 18 CheckoutYear=2022/part-0.parquet   0.252</code></pre>
@@ -1167,7 +1168,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb29-10"><a href="#cb29-10"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  4.894   0.341   0.563 </code></pre>
+  3.748   0.460   0.607 </code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1216,7 +1217,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb31-8"><a href="#cb31-8"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
- 13.246   1.981  12.331 </code></pre>
+ 11.577   0.984  11.096 </code></pre>
 </div>
 </div>
 </section>
@@ -1235,7 +1236,7 @@ See $.data for the source Arrow object</code></pre>
 <span id="cb33-8"><a href="#cb33-8"></a>  <span class="fu">system.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.339   0.039   0.081 </code></pre>
+  0.238   0.040   0.066 </code></pre>
 </div>
 </div>
 </section>
